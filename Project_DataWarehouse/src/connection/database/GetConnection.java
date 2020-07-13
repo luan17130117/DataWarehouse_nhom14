@@ -17,22 +17,52 @@ public class GetConnection {
 	String dbName = null;
 
 	public Connection getConnection(String location) {
+		// C:\DevPrograms\git\DataWarehouse_nhom14\Project_DataWarehouse\files\config.properties
 		String link = "files/config.properties";
 		Connection result = null;
-		
-		if (location.equalsIgnoreCase("control_db")) {
+
+		if (location.equalsIgnoreCase("control")) {
+			try (InputStream input = new FileInputStream(link)) {
+				Properties prop = new Properties();
+				prop.load(input);
+				driver = prop.getProperty("driver_server");
+				url = prop.getProperty("url_server");
+				dbName = prop.getProperty("dbName_control");
+				userName = prop.getProperty("userName_server");
+				passWord = prop.getProperty("password_server");
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		} else if (location.equalsIgnoreCase("staging")) {
 			try (InputStream input = new FileInputStream(link)) {
 				Properties prop = new Properties();
 				prop.load(input);
 				driver = prop.getProperty("driver_local");
 				url = prop.getProperty("url_local");
-				dbName = prop.getProperty("dbName_control");
+				dbName = prop.getProperty("dbName_staging");
 				userName = prop.getProperty("userName_local");
 				passWord = prop.getProperty("password_local");
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
-		} 
+		} else {
+			if (location.equalsIgnoreCase("control_db")) {
+				try (InputStream input = new FileInputStream(link)) {
+					Properties prop = new Properties();
+					prop.load(input);
+					driver = prop.getProperty("driver_local");
+					url = prop.getProperty("url_local");
+					dbName = prop.getProperty("dbName_control");
+					userName = prop.getProperty("userName_local");
+					passWord = prop.getProperty("password_local");
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+			else {
+				System.out.println(driver);
+			}
+		}
 		try {
 			Class.forName(driver);
 			String connectionURL = url + dbName;
@@ -52,9 +82,10 @@ public class GetConnection {
 
 		return result;
 	}
+
 	//
 	public static void main(String[] args) {
-		Connection conn = new GetConnection().getConnection("control_db");
+		Connection conn = new GetConnection().getConnection("control");
 		if (conn != null) {
 			System.out.println("Kết nối thành công...");
 		}

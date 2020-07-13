@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
+import connection.database.GetConnection;
+
 //Step2: Load data file from local to DB Staging
 public class Staging {
 
@@ -38,9 +40,9 @@ public class Staging {
 				HashMap<String, String> hm = new HashMap<String, String>();
 				hm.put("id", Integer.toString(re.getInt("id")));
 				hm.put("encode", re.getString("encode"));
-				hm.put("values", re.getString("insert_staging"));
+//				hm.put("values", re.getString("insert_staging"));
 				hm.put("table_staging", re.getString("table_staging_load"));
-				hm.put("dir", re.getString("download_to_dir_local"));
+				hm.put("dir", re.getString("local_directory"));
 				hm.put("filename", re.getString("your_filename"));
 				hm.put("delimiter", re.getString("delimiter"));
 				hm.put("number_column", Integer.toString(re.getInt("number_column")));

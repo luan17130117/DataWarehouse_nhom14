@@ -3,6 +3,8 @@ package phan2;
 import java.sql.Connection;
 import java.util.Scanner;
 
+import connection.database.GetConnection;
+
 public class Main {
 	public Main() {
 
