@@ -1,4 +1,4 @@
-package model;
+package phan2;
 
 import java.sql.Connection;
 import java.util.Scanner;
@@ -24,7 +24,7 @@ public class Main {
 				System.out.println("Nhập status file: (Ví dụ: Download ok) ");
 				Scanner sc2 = new Scanner(System.in);
 				String input = sc2.nextLine();
-				new Staging().staging(input);
+				new Staging().loadStudentToStaging();
 			}  else if (value == 0) {
 				System.out.println("Hẹn gặp lại sau!");
 				break;
