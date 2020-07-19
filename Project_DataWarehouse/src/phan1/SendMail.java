@@ -1,4 +1,4 @@
-package phan1.cource;
+package phan1;
 
 import java.util.Properties;
 
