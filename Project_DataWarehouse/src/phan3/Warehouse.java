@@ -24,7 +24,7 @@ import com.chilkatsoft.CkGlobal;
 import com.chilkatsoft.CkScp;
 import com.chilkatsoft.CkSsh;
 
-public class wareHouseThree {
+public class Warehouse {
 	private static Connection con, conStaging, conWarehouse;
 	static String hostName;
 	static int port;
@@ -110,7 +110,7 @@ public class wareHouseThree {
 	}
 
 	public void wiriteLog(String path) throws SQLException, IOException {
-		wareHouseThree cl = new wareHouseThree();
+		Warehouse cl = new Warehouse();
 		System.out.println("ChilkatExample");
 		File file = new File(path);
 		System.out.println("File");
@@ -247,7 +247,7 @@ public class wareHouseThree {
 	}
 
 	public static void main(String argv[]) throws SQLException, IOException, ClassNotFoundException {
-		wareHouseThree cle = new wareHouseThree();
+		Warehouse cle = new Warehouse();
 //		System.out.println(cle.readLine(new File("E:\\WH\\test.txt")));
 		;
 		cle.createConnection();
