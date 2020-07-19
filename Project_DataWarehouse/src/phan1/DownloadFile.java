@@ -79,26 +79,27 @@ public class DownloadFile {
 			// Tạo folder tên fileName
 			localPath+="/"+fileName;
 			success = scp.SyncTreeDownload(srcPath, localPath, 2, false);
-		// 7. In thông báo tải file thành công ra màn hình
+		// 7. In thông báo tải file ra màn hình
+			// 7.1 Nếu file tải thành công
 			System.out.println("Tải thành công");
 			
 		
 			//Kiểm tra tải file nếu tải không thành công
 			if (success != true) {
-				// 8.1 In thông báo lỗi ra màn hìn
+				// 7.2.1 In thông báo lỗi ra màn hìn
 				System.out.println(id+": "+fileName+": "+" Bị lỗi...");
-				// 8.2 Gửi mail thông báo lỗi
+				// 7.2.2 Gửi mail thông báo lỗi
 				SendMail.sendMail("test@st.hcmuaf.edu.vn", "Warehouse",id+" "+ fileName+": Bị lỗi");
 				return;
 			}
-			// Ngắt kết nối server
+		// 8. Ngắt kết nối server
 			ssh.Disconnect();
-			// 
+			// Lấy danh sách file tải trong local
 			List<File> listFile= listFile(localPath);
-			// Kiểm tra file tải
+		// 9. Kiểm tra file tải
 			checkFile(id, listFile);
 		}	
-		// 11. Đóng kết nối
+		// 10. Đóng kết nối
 		connection.close();
 
 	}
@@ -118,19 +119,22 @@ public class DownloadFile {
 		Connection connection = new GetConnection().getConnection("control_db");
 		for (int i = 0; i < listFile.size(); i++) {
 			File f = listFile.get(i);
+			// 9.1 Nếu file tải thành công
 			if(f.length()>0) {
-				// 8. Ghi lai log
+				// 9.1.1 Ghi lai log
 				String log = "Insert into table_log(id, fileName, status) values ('"+(i+1)+"','" +f.getName() +"','Download OK') ";
 				PreparedStatement pslog = connection.prepareStatement(log);
 				pslog.executeUpdate(log);
+				// 9.1.2 In thông báo ra màn hình
 				System.out.println((i+1)+": "+f.getName()+": "+"Đã ghi vào table_log...");
 			}
+			// 9.2 Nếu file tải bị lỗi
 			else {
-				// In thông báo lỗi ra màn hình
+				// 9.2.1 In thông báo lỗi ra màn hình
 				System.out.println((i+1)+": "+f.getName()+": "+" Bị lỗi...");
-				// Gửi mail thông báo lỗi
+				// 9.2.2 Gửi mail thông báo lỗi
 				SendMail.sendMail("test@st.hcmuaf.edu.vn", "Warehouse", (i+1)+" "+f.getName()+": Bị lỗi");
-				// Ghi lại log file bị lỗi
+				// 9.2.3 Ghi lại log file bị lỗi
 				String log = "Insert into table_log(id, fileName, status) values ('"+(i+1)+"','" +f.getName() +"','Download ERROR') ";
 				PreparedStatement pslog = connection.prepareStatement(log);
 				pslog.executeUpdate(log);
