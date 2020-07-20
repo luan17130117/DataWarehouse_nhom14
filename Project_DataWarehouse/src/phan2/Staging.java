@@ -162,19 +162,24 @@ public class Staging {
 				StringTokenizer st = new StringTokenizer(data, map.get("delimiter"));
 				System.out.println("count ST: " + st.countTokens());
 				// Lưu hàng sinh viên đó vào chuỗi value
-				if (st.countTokens() == Integer.parseInt(map.get("number_column"))) {
+//				if (st.countTokens() == Integer.parseInt(map.get("number_column"))) {
 					value += "('" + st.nextToken() + "'";
 					while (st.hasMoreTokens()) {
-						value += ", N'" + st.nextToken() + "'";
+						String stt=st.nextToken();
+						if(stt.isEmpty()) {
+							value += ",N'null'";
+						}else {
+							value += ", N'" + stt + "'";
+						}	
 					}
 					value += "), ";
-				}
+//				}
 				// lay hang tiep theo len
 				data = reader.readLine();
 				System.out.println(data);
 
 			}
-			value = value.substring(0, value.lastIndexOf(","));
+			value = value.substring( 0, value.lastIndexOf(","));
 			value += ";";
 			reader.close();
 		} catch (IOException e) {
