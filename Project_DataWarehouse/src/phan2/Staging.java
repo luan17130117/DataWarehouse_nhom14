@@ -28,7 +28,7 @@ public class Staging {
 			conn = new GetConnection().getConnection("control");
 			// 2. Tìm tất cả các file có trạng thái OK download và ở các nhóm đang active
 			pre_control = conn.prepareStatement("SELECT data_file_logs.id ,ID_host, your_filename, table_staging_load, "
-					+ " data_file_configuaration.delimiter, data_file_configuaration.local_directory,encode,"
+					+ " data_file_configuaration.delimiter, data_file_configuaration.localPath,"
 					+ "data_file_configuaration.number_column from data_file_logs "
 					+ "JOIN data_file_configuaration ON data_file_logs.ID_host = data_file_configuaration.id"
 					+ " where "
@@ -39,10 +39,10 @@ public class Staging {
 			while (re.next()) {
 				HashMap<String, String> hm = new HashMap<String, String>();
 				hm.put("id", Integer.toString(re.getInt("id")));
-				hm.put("encode", re.getString("encode"));
+//				hm.put("encode", re.getString("encode"));
 //				hm.put("values", re.getString("insert_staging"));
 				hm.put("table_staging", re.getString("table_staging_load"));
-				hm.put("dir", re.getString("local_directory"));
+				hm.put("dir", re.getString("localPath"));
 				hm.put("filename", re.getString("your_filename"));
 				hm.put("delimiter", re.getString("delimiter"));
 				hm.put("number_column", Integer.toString(re.getInt("number_column")));
@@ -86,7 +86,7 @@ public class Staging {
 				if (count > 0) {
 					// 10.1. Cập nhật trạng thái trong data_file_logs là ERROR at Staging và ngày
 					// giờ cập nhật, số dòng load thành công = 0
-					updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "OK Staging", count);
+					updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "Staging ok", count);
 					System.out.println("Thanh Cong:\t" + "file name: " + lst.get(i).get("filename")
 							+ " ==> So dong thanh cong: " + count);
 				} else {
@@ -150,7 +150,7 @@ public class Staging {
 		try {
 			// Mở file để đọc dữ liệu lên, có kèm theo encoding
 			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(new FileInputStream(file), map.get("encode")));
+					new InputStreamReader(new FileInputStream(file), "UTF-8"));
 			// Đọc bỏ phần header
 			reader.readLine();
 			// Bắt đầu từ hàng thứ 2, đọc từng hàng dữ liệu đến khi cuối file
