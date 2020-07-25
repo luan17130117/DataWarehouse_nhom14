@@ -206,6 +206,7 @@ public class Staging {
 	}
 
 	public static void main(String[] args) {
+		//demo test
 		new Staging().loadStudentToStaging();
 	}
 }
