@@ -78,7 +78,7 @@ public class DownloadFile {
 			// Tải tất cả file bắt đầu tên fileName
 			scp.put_SyncMustMatch(fileName + "*.*");
 			// Tạo folder tên fileName
-			localPath += "/" + fileName;
+//			localPath += "/" + fileName;
 			success = scp.SyncTreeDownload(srcPath, localPath, 2, false);
 			// 7. In thông báo tải file ra màn hình
 			// 7.1 Nếu file tải thành công
@@ -97,7 +97,7 @@ public class DownloadFile {
 			// Lấy danh sách file tải trong local
 			List<File> listFile = listFile(localPath);
 			// 9. Kiểm tra file tải
-			checkFile(id, listFile);
+			checkFile(id, listFile, fileName);
 		}
 		// 10. Đóng kết nối
 		connection.close();
@@ -117,15 +117,15 @@ public class DownloadFile {
 	}
 
 	//
-	public void checkFile(String id, List<File> listFile) throws SQLException {
+	public void checkFile(String id, List<File> listFile, String fileName) throws SQLException {
 		Connection connection = new GetConnection().getConnection("control_db");
 		for (int i = 0; i < listFile.size(); i++) {
 			File f = listFile.get(i);
 			// 9.1 Nếu file tải thành công
 			if (f.length() > 0) {
 				// 9.1.1 Ghi lai log
-				String log = "Insert into data_file_logs(ID_host, your_filename, status_file, time_download) values ('"
-						+ id + "','" + f.getName() + "','Download ok',NOW()) ";
+				String log = "Insert into data_file_logs(id_config, your_filename, table_staging, status_file, time_download) values ('"
+						+ id + "','" + f.getName() + "','" + fileName+"', 'Download ok', NOW()) ";
 				PreparedStatement pslog = connection.prepareStatement(log);
 				pslog.executeUpdate(log);
 				// 9.1.2 In thông báo ra màn hình
@@ -148,7 +148,7 @@ public class DownloadFile {
 	}
 
 	public static void main(String argv[]) throws ClassNotFoundException, SQLException {
-		int n = 1;
+		int n = 2;
 		DownloadFile load = new DownloadFile();
 		load.DownloadFie(n);
 	}
