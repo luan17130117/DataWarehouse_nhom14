@@ -27,10 +27,10 @@ public class Staging {
 			// 1. Kết nối tới DB control
 			conn = new GetConnection().getConnection("control");
 			// 2. Tìm tất cả các file có trạng thái OK download và ở các nhóm đang active
-			pre_control = conn.prepareStatement("SELECT data_file_logs.id ,id_config, your_filename, table_staging, "
-					+ " data_file_configuaration.delimiter, data_file_configuaration.localPath,"
+			pre_control = conn.prepareStatement("SELECT data_file_logs.id ,ID_host, your_filename, table_staging_load, "
+					+ " data_file_configuaration.delimiter, data_file_configuaration.local_directory,encode,"
 					+ "data_file_configuaration.number_column from data_file_logs "
-					+ "JOIN data_file_configuaration ON data_file_logs.id_config = data_file_configuaration.id"
+					+ "JOIN data_file_configuaration ON data_file_logs.ID_host = data_file_configuaration.id"
 					+ " where "
 					+ "data_file_logs.status_file like 'Download ok' AND data_file_configuaration.isActive=1 ");
 			// 3. Nhận được ResultSet chứa các record thỏa điều kiện truy xuất
@@ -39,10 +39,10 @@ public class Staging {
 			while (re.next()) {
 				HashMap<String, String> hm = new HashMap<String, String>();
 				hm.put("id", Integer.toString(re.getInt("id")));
-				hm.put("encode", "UTF-8");
+				hm.put("encode", re.getString("encode"));
 //				hm.put("values", re.getString("insert_staging"));
-				hm.put("table_staging", re.getString("table_staging"));
-				hm.put("dir", re.getString("localPath"));
+				hm.put("table_staging", re.getString("table_staging_load"));
+				hm.put("dir", re.getString("local_directory"));
 				hm.put("filename", re.getString("your_filename"));
 				hm.put("delimiter", re.getString("delimiter"));
 				hm.put("number_column", Integer.toString(re.getInt("number_column")));
@@ -66,33 +66,15 @@ public class Staging {
 		System.out.println(lst.size());
 		// 6. Duyệt danh sách các file
 		for (int i = 0; i < lst.size(); i++) {
-			String fileNamei = lst.get(i).get("filename");// abc.txt
-			String fileNameo = fileNamei.substring(0, fileNamei.lastIndexOf("."));
-			String path = lst.get(i).get("dir") + File.separator + fileNamei;
-			File file = null;
-			String pathConvert = lst.get(i).get("dir") + File.separator + fileNameo + ".txt";
-			////
-			if (fileNamei.substring(fileNamei.lastIndexOf(".") + 1).equalsIgnoreCase("xlsx")
-					|| fileNamei.substring(fileNamei.lastIndexOf(".") + 1).equalsIgnoreCase("xls")) {
-				System.out.println(pathConvert);
-				file = new File(pathConvert);
-				try {
-					ConvertExcelToTxt.convertExcelToTxt(path, pathConvert, ",");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else {
-				System.out.println(path);
-				file = new File(path);
-			}
-			/////
+			String path = lst.get(i).get("dir") + File.separator + lst.get(i).get("filename");
+			System.out.println(path);
+			File file = new File(path);
 			// 7. Kiểm tra file tồn tại
 			if (!file.exists()) {
 				// 8.1. Cập nhật trạng thái trong data_2file_logs là ERROR at Staging và ngày
 				// giờ
 				// cập nhật
-				System.out.println(pathConvert + " không tồn tại");
+				System.out.println(path + "khong ton tai");
 				updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "ERROR at Staging", -1);
 			} else {
 				// 8.2. Đọc file sinh viên và lưu vào một chuỗi string dưới dạng values là sql
@@ -104,7 +86,7 @@ public class Staging {
 				if (count > 0) {
 					// 10.1. Cập nhật trạng thái trong data_file_logs là ERROR at Staging và ngày
 					// giờ cập nhật, số dòng load thành công = 0
-					updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "Staging ok", count);
+					updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "OK Staging", count);
 					System.out.println("Thanh Cong:\t" + "file name: " + lst.get(i).get("filename")
 							+ " ==> So dong thanh cong: " + count);
 				} else {
@@ -167,7 +149,8 @@ public class Staging {
 		String value = "";
 		try {
 			// Mở file để đọc dữ liệu lên, có kèm theo encoding
-			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), map.get("encode")));
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream(file), map.get("encode")));
 			// Đọc bỏ phần header
 			reader.readLine();
 			// Bắt đầu từ hàng thứ 2, đọc từng hàng dữ liệu đến khi cuối file
@@ -180,23 +163,23 @@ public class Staging {
 				System.out.println("count ST: " + st.countTokens());
 				// Lưu hàng sinh viên đó vào chuỗi value
 //				if (st.countTokens() == Integer.parseInt(map.get("number_column"))) {
-				value += "('" + st.nextToken() + "'";
-				while (st.hasMoreTokens()) {
-					String stt = st.nextToken();
-					if (stt.isEmpty()) {
-						value += ",N'null'";
-					} else {
-						value += ", N'" + stt + "'";
+					value += "('" + st.nextToken() + "'";
+					while (st.hasMoreTokens()) {
+						String stt=st.nextToken();
+						if(stt.isEmpty()) {
+							value += ",N'null'";
+						}else {
+							value += ", N'" + stt + "'";
+						}	
 					}
-				}
-				value += "), ";
+					value += "), ";
 //				}
 				// lay hang tiep theo len
 				data = reader.readLine();
 				System.out.println(data);
 
 			}
-			value = value.substring(0, value.lastIndexOf(","));
+			value = value.substring( 0, value.lastIndexOf(","));
 			value += ";";
 			reader.close();
 		} catch (IOException e) {
@@ -206,7 +189,6 @@ public class Staging {
 	}
 
 	public static void main(String[] args) {
-		//demo test
 		new Staging().loadStudentToStaging();
 	}
 }
