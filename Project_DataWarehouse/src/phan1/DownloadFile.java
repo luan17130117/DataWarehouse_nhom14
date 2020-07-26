@@ -148,7 +148,7 @@ public class DownloadFile {
 	}
 
 	public static void main(String argv[]) throws ClassNotFoundException, SQLException {
-		int n = 2;
+		int n = 1;
 		DownloadFile load = new DownloadFile();
 		load.DownloadFie(n);
 	}

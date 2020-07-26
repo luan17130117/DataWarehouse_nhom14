@@ -11,6 +11,7 @@ import java.util.Iterator;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -19,13 +20,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ConvertExcelToTxt {
 
 	public static void main(String[] args) throws IOException {
-		final String excelFilePath = "C:\\DevPrograms\\git\\DataWarehouse_nhom14\\Project_DataWarehouse\\files\\monhoc\\monhoctest2014.xlsx";
-		String txtFilePath = "C:\\DevPrograms\\git\\DataWarehouse_nhom14\\Project_DataWarehouse\\files\\monhoc\\monhoctest2014.txt";
-		convertExcelToTxt(excelFilePath, txtFilePath, ",");
+		final String excelFilePath = "C:\\DevPrograms\\git\\DataWarehouse_nhom14\\Project_DataWarehouse\\files\\monhoc\\monhoc2013.xlsx";
+		String txtFilePath = "C:\\DevPrograms\\git\\DataWarehouse_nhom14\\Project_DataWarehouse\\files\\monhoc\\monhoc2013.txt";
+		convertExcelToTxt(excelFilePath, txtFilePath, ";");
 	}
 
 	@SuppressWarnings("unused")
-	public static void convertExcelToTxt(String excelFilePath, String txtFilePath, String delimiter) throws IOException {
+	public static void convertExcelToTxt(String excelFilePath, String txtFilePath, String delimiter)
+			throws IOException {
 
 		File txtFile = new File(txtFilePath);
 		txtFile.createNewFile();
@@ -83,6 +85,14 @@ public class ConvertExcelToTxt {
 						break;
 					case BOOLEAN:
 						data.append(delimiter + cell.getBooleanCellValue());
+						break;
+					case FORMULA:
+						// In ra Công thức
+						// System.out.print(cell.getCellFormula());
+						// System.out.print("\t");
+						FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
+						// In ra giá trị từ công thức
+						data.append(delimiter + (int) evaluator.evaluate(cell).getNumberValue());
 						break;
 					default:
 						data.append(delimiter + "?");
