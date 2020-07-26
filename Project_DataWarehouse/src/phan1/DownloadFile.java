@@ -124,7 +124,7 @@ public class DownloadFile {
 			// 9.1 Nếu file tải thành công
 			if (f.length() > 0) {
 				// 9.1.1 Ghi lai log
-				String log = "Insert into data_file_logs(ID_host, your_filename, status_file, time_download) values ('"
+				String log = "Insert into data_file_logs(id_config,your_fileName, status_file, time_download) values ('"
 						+ id + "','" + f.getName() + "','Download ok',NOW()) ";
 				PreparedStatement pslog = connection.prepareStatement(log);
 				pslog.executeUpdate(log);
@@ -138,7 +138,7 @@ public class DownloadFile {
 				// 9.2.2 Gửi mail thông báo lỗi
 				SendMail.sendMail("test@st.hcmuaf.edu.vn", "Warehouse", (i + 1) + " " + f.getName() + ": Bị lỗi");
 				// 9.2.3 Ghi lại log file bị lỗi
-				String log = "Insert into data_file_logs(your_filename, status_file, time_download) values ('" + id
+				String log = "Insert into data_file_logs(id_config,your_fileName, status_file, time_download) values ('" + id
 						+ "','" + f.getName() + "','Download ERROR',NOW()) ";
 				PreparedStatement pslog = connection.prepareStatement(log);
 				pslog.executeUpdate(log);
@@ -148,7 +148,7 @@ public class DownloadFile {
 	}
 
 	public static void main(String argv[]) throws ClassNotFoundException, SQLException {
-		int n = 1;
+		int n = 2;
 		DownloadFile load = new DownloadFile();
 		load.DownloadFie(n);
 	}
