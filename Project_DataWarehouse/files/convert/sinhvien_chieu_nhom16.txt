@@ -1,0 +1,30 @@
+STT;MSSV;Họ Lót;Tên;Ngày sinh;Mã lớp;Tên lớp;SĐT;Email;Quê quán;Ghi chú
+0;17125017;0;0;30/11/1998;DH17DD( BQ chế biến NSTP và dinh dưỡng người);Công nghệ thực phẩm;951248631;0;Bình Định;Huỳnh Thị Bé
+1;17125239;0;0;36199;DH17DD( BQ chế biến NSTP và dinh dưỡng người);Công nghệ thực phẩm;951357486;0;Đồng Nai;Vũ Thị Như Quỳnh
+2;17130010;0;0;18/01/2018;DH17DTA( Công nghệ thông tin A);Công nghệ thông tin;698769789;0;Quảng Bình;Nguyễn Như Bảo
+3;17130016;0;0;30/12/1996;DH17DTA( Công nghệ thông tin A);Công nghệ thông tin;678769798;0;Cà Mau;Nguyễn Việt Chương
+4;17130045;0;0;21/12/2014;DH17DTA( Công nghệ thông tin A);Công nghệ thông tin;769878999;0;Đồng Nai;Trần Thị Mỹ Duyên
+5;17130114;0;0;35827;DH17DTA( Công nghệ thông tin A);Công nghệ thông tin;321654987;0;Phú Yên;Nguyễn Thành Lợi
+6;17130185;0;0;35164;DH17DTA( Công nghệ thông tin A);Công nghệ thông tin;321654987;0;An Giang;Lê Lâm Phương Quyên
+7;17130224;0;0;33240;DH17DTB( Công nghệ thông tin b);Công nghệ thông tin;321456789;0;Thành phố Hồ Chí Minh;Từ Phước Thiện
+8;17130261;0;0;27/11/1993;DH17DTC( Công nghệ thông tin C);Công nghệ thông tin;904321613;0;Bình Thuận;Trần Nhật Trường
+9;17149088;0;0;30/04/1905;DH17QM( Quản lý môi trường);Môi trường và Tài nguyên;123456789;0;Thành phố Hồ Chí Minh;Nguyễn Lê Thùy My
+10;17153051;0;0;30686;DH17CD( Công nghệ kỹ thuật cơ điện tử);Cơ khí công nghệ;963852741;0;Long An;Võ Thành Nhân
+11;18112149;0;0;15/07/2000;DH18DY( Dược thú y);Chăn nuôi Thú Y;321654987;0;Bình Định;Nguyễn Thị Cẩm Nhung
+12;18115023;0;0;21/12/1999;DH18CB( Công nghệ chế biến lâm sản);Lâm nghiệp;369258147;0;Long An;Nguyễn Minh Duy
+13;18122113;0;0;17/04/1998;DH18TM( Quản trị kinh doanh thương mại);Kinh tế;321654987;0;An Giang;Phan Thị Linh
+14;18122353;0;0;31872;DH18QT( Quản trị kinh doanh (tổng hợp));Kinh tế;321456789;0;Quảng Ngãi;Ngô Thị Tường Vi
+15;18126089;0;0;23/05/1999;DH18SHA( Công nghệ sinh học A);Công nghệ sinh học;1656657722;0;Bình Định;Nguyễn Khắc Xuân Ly
+16;18130004;0;0;31872;DH18DTC( Công nghệ thông tin C);Công nghệ thông tin;1628296863;0;Lâm Đồng;Trương Nguyễn Thiên Ân
+17;18130158;0;0;32143;DH18DTB( Công nghệ thông tin B);Công nghệ thông tin;392387593;0;Tiền Giang;Tô Thảo NhẢ
+18;18138019;0;0;33278;DH18TD( Kỹ thuật điều khiển và tự động hóa);Cơ khí công nghệ;1696940321;0;Long An;Lê Tấn Dương
+19;18153004;0;0;35890;DH18CD( Công nghệ kỹ thuật cơ điện tử);Cơ khí công nghệ;773555859;0;Thành phố Hồ Chí Minh;Nguyễn Ngọc Bảo
+20;18153016;0;0;36200;DH18CD( Công nghệ kỹ thuật cơ điện tử);Cơ khí công nghệ;979006985;0;Đồng Nai;Nguyễn Thái Dương
+21;18153038;0;0;22/04/1999;DH18CD( Công nghệ kỹ thuật cơ điện tử);Cơ khí công nghệ;984685484;0;Thành phố Hồ Chí Minh;Lê Trọng Lâm
+22;18153056;0;0;27/04/1999;DH18CD( Công nghệ kỹ thuật cơ điện tử);Cơ khí công nghệ;934570754;0;Long An;Nguyễn Đăng Quang
+23;18153060;0;0;23/05/1999;DH18CD( Công nghệ kỹ thuật cơ điện tử);Cơ khí công nghệ;1648004562;0;Cà Mau;Phạm Thanh Quel
+?;?;?;?;?;?;?;?;?;?;?
+?;?;?;?;?;?;?;?;?;?;?
+?;?;?;?;?;?;?;?;?;?;?
+?;?;?;?;?;?;?;?;?;?;?
+?;?;?;?;?;?;?;?;?;?;?

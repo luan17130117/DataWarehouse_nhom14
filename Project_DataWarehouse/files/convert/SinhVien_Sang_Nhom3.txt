@@ -1,0 +1,47 @@
+STT;Mã sinh viên;Họ lót;Tên;Ngày Sinh;Mã lớp;Tên lớp;ĐT liên lạc;Email;Quê Quán;Ghi chú
+1;17130005;Đào Thị Kim;Anh;27/09/1999;DH17DTB;Công nghệ thông tin B;0;0;Long An;?
+2;17130006;Lê Thị Lan;Anh;30/04/1999;DH17DTB;Công nghệ thông tin B;0;0;Sóc Trăng;?
+3;17130008;Vũ Huỳnh Như;Anh;19/05/1999;DH17DTA;Công nghệ thông tin A;0;0;Tiền Giang;?
+4;17130016;Nguyễn Việt;Chương;21/05/1999;DH17DTA;Công nghệ thông tin A;0;0;Trà Vinh;?
+5;17130033;Phạm Phương;Dung;20/06/1998;DH17DTB;Công nghệ thông tin B;0;0;Vĩnh Long;?
+6;17130037;Huỳnh Khương;Duy;36443;DH17DTC;Công nghệ thông tin C;0;0;Đà Nẵng;?
+7;17130041;Thái Ngọc Lê;Duy;20/01/1999;DH17DTB;Công nghệ thông tin B;0;0;Quảng Nam;?
+8;17130044;Lăng Thị Mỹ;Duyên;27/12/1999;DH17DTA;Công nghệ thông tin A;0;0;Quảng Ngãi;?
+9;17130045;Trần Thị Mỹ;Duyên;15/08/1999;DH17DTA;Công nghệ thông tin A;0;0;Bình Định;?
+10;17130021;Phạm Thanh Ngọc;Đào;16/08/1999;DH17DTC;Công nghệ thông tin C;0;0;Phú Yên;?
+11;17130024;Phạm Tấn;Đạt;15/08/1999;DH17DTC;Công nghệ thông tin C;0;0;Khánh Hòa;?
+12;17130032;Trương Quý;Đức;21/08/1999;DH17DTA;Công nghệ thông tin A;0;0;Ninh Thuận;?
+13;17130047;Nguyễn Thị;Giang;15/08/1999;DH17DTA;Công nghệ thông tin A;0;0;Bình Thuận;?
+14;17130048;Nguyễn Hoàng Nhật;Hà;24/10/1999;DH17DTC;Công nghệ thông tin C;0;0;An Giang;?
+15;17130049;Đào Ngọc;Hải;27/05/1999;DH17DTC;Công nghệ thông tin C;0;0;Bạc Liêu;?
+16;17130051;Nguyễn Hữu;Hải;30/07/1999;DH17DTB;Công nghệ thông tin B;0;0;Bến Tre;?
+17;17130052;Phạm Ngọc;Hải;27/02/1999;DH17DTC;Công nghệ thông tin C;0;0;Cà Mau;?
+18;17130061;Nguyễn Thanh;Hiền;27/05/1999;DH17DTC;Công nghệ thông tin C;0;0;Cần Thơ;?
+19;17130066;Đỗ Kim;Hiếu;29/05/1998;DH17DTA;Công nghệ thông tin A;0;0;Đồng Tháp;?
+20;17130068;Nguyễn Minh;Hiếu;27/05/1999;DH17DTC;Công nghệ thông tin C;0;0;Hậu Giang;?
+21;17130072;Hồ Ngọc;Hoan;23/08/1999;DH17DTA;Công nghệ thông tin A;0;0;Kiên Giang;?
+22;17130078;Đặng Quốc;Hùng;30/07/1999;DH17DTB;Công nghệ thông tin B;0;0;Long An;?
+23;17130089;Võ Anh;Huy;28/03/1999;DH17DTC;Công nghệ thông tin C;0;0;Sóc Trăng;?
+24;17130099;Trần Minh;Khánh;28/03/1999;DH17DTA;Công nghệ thông tin A;0;0;Tiền Giang;?
+25;17130106;Võ Văn;Kiệt;21/08/1999;DH17DTC;Công nghệ thông tin C;0;0;Trà Vinh;?
+26;17130120;Lý Đức;Mạnh;23/08/1999;DH17DTB;Công nghệ thông tin B;0;0;Vĩnh Long;?
+27;17130133;Nguyễn Tấn;Nghĩa;30/07/1999;DH17DTB;Công nghệ thông tin B;0;0;Thanh Hóa;?
+28;17130135;Nguyễn Trọng;Nghĩa;23/08/1999;DH17DTC;Công nghệ thông tin C;0;0;Nghệ An;?
+29;17130171;Đặng Thị;Phượng;21/07/1999;DH17DTA;Công nghệ thông tin A;0;0;Hà Tĩnh;?
+30;17130185;Lê Lâm Phương;Quyên;22/06/1999;DH17DTA;Công nghệ thông tin A;0;0;Quảng Bình;?
+31;17130195;Tô Huy;Sơn;20/09/1999;DH17DTA;Công nghệ thông tin A;0;0;Quảng Trị;?
+32;17130197;Đào Tiến;Sỹ;24/04/1999;DH17DTC;Công nghệ thông tin C;0;0;Thừa Thiên Huế;?
+33;17130198;Bùi Văn;Tài;14/06/1999;DH17DTC;Công nghệ thông tin C;0;0;TP Hồ Chí Minh;?
+34;17130208;Nguyễn Văn;Tánh;21/07/1999;DH17DTC;Công nghệ thông tin C;0;0;Bà Rịa Vũng Tàu;?
+35;17130217;Phan Trần Công;Thành;20/09/1999;DH17DTA;Công nghệ thông tin A;0;0;Bình Dương;?
+36;17130215;Vũ Đại;Thánh;16/04/1999;DH17DTB;Công nghệ thông tin B;0;0;Bình Phước;?
+37;17130221;Nguyễn Chí;Thiện;31/01/1999;DH17DTC;Công nghệ thông tin C;0;0;Đồng Nai;?
+38;17130225;Hoàng Trường;Thịnh;20/09/1999;DH17DTC;Công nghệ thông tin C;0;0;Tây Ninh;?
+39;17130247;Trần Văn;Tình;21/07/1999;DH17DTA;Công nghệ thông tin A;0;0;Nghệ An;?
+40;17130246;Nguyễn Thanh;Tính;20/06/1999;DH17DTA;Công nghệ thông tin A;0;0;Hà Tĩnh;?
+41;17130252;Nguyễn Thị Mỹ;Trang;21/03/1999;DH17DTB;Công nghệ thông tin B;0;0;Quảng Bình;?
+42;17130254;Võ Thanh;Trí;27/04/1999;DH17DTB;Công nghệ thông tin B;0;0;Quảng Trị;?
+43;17130255;Nguyễn Chính Đông;Triều;23/08/1999;DH17DTC;Công nghệ thông tin C;0;0;Thừa Thiên Huế;?
+44;17130256;Võ Cao;Trịnh;27/02/1999;DH17DTC;Công nghệ thông tin C;0;0;TP Hồ Chí Minh;?
+45;17130264;Đào Thanh;Tùng;20/01/1999;DH17DTC;Công nghệ thông tin C;0;0;Bà Rịa Vũng Tàu;?
+?;?;?;?;?;?;?;?;?;?;?

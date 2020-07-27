@@ -1,0 +1,47 @@
+STT;Mssv;Họ lót;Tên;Ngày sinh;Mã lớp;Tên lớp;ĐT liên lạc;Email;Quê Quán;Ghi chú
+1;14130013;Nguyễn Anh;Duy;13/12/1996;DH14DTA;Công nghệ thông tin A;0;0;Đồng Nai;?
+2;14130039;Đoàn Văn;Hòa;21/02/1995;DH14DTA;Công nghệ thông tin A;0;0;Bình Phước;?
+3;14130116;Lê Minh;Thắng;35107;DH14DTA;Công nghệ thông tin A;0;0;Đồng Nai;?
+4;14130167;Võ Hữu;Công;34984;DH14DTB;Công nghệ thông tin B;0;0;Hồ Chí Minh;?
+5;14130191;Võ Bá Hoàng;Đăng;35104;DH14DTB;Công nghệ thông tin B;0;0;Long An;?
+6;15130055;Phạm Thị;Hiền;35704;DH15DTC;Công nghệ thông tin C;0;0;Đồng Nai;?
+7;15130091;Trần Minh;Linh;17/11/1997;DH15DTA;Công nghệ thông tin A;0;0;Đồng Nai;?
+8;15130158;Phạm Hoàng;Sơn;27/04/1995;DH15DTA;Công nghệ thông tin A;0;0;Bình Dương;?
+9;15130207;Nguyễn Văn;Trọng;26/11/1997;DH15DTB;Công nghệ thông tin B;0;0;Nha Trang;?
+10;15130215;Võ Hữu;Tú;20/11/1996;DH15DTC;Công nghệ thông tin C;0;0;Long Xuyên;?
+11;15130233;Đinh Ngọc;Vũ;20/05/1997;DH15DTC;Công nghệ thông tin C;0;0;Đồng Nai;?
+12;16130293;Đinh Hoàng;Bảo;30/05/1998;DH16DTB;Công nghệ thông tin B;0;0;Bình Phước;?
+13;16130308;Nguyễn Huy;Cường;35346;DH16DTA;Công nghệ thông tin A;0;0;Đồng Nai;?
+14;16130319;Lương Thành;Đạt;35797;DH16DTC;Công nghệ thông tin C;0;0;Hồ Chí Minh;?
+15;16130417;Ngô Văn;Huynh;31/01/1998;DH16DTC;Công nghệ thông tin C;0;0;Long An;?
+16;16130433;Phạm Văn;Lanh;26/01/1992;DH16DTB;Công nghệ thông tin B;0;0;Đồng Nai;?
+17;16130443;Trần Hữu;Linh;35345;DH16DTB;Công nghệ thông tin B;0;0;Đồng Nai;?
+18;16130493;Nguyễn Chí;Nguyễn;27/07/1998;DH16DTC;Công nghệ thông tin C;0;0;Bình Dương;?
+19;16130497;Nguyễn Thiện;Nhân;34973;DH16DTC;Công nghệ thông tin C;0;0;Nha Trang;?
+20;16130549;Châu Văn;Sơn;23/04/1997;DH16DTB;Công nghệ thông tin B;0;0;Phú Yên;?
+21;16130577;Phạm Quốc;Thanh;35920;DH16DTB;Công nghệ thông tin B;0;0;Long Xuyên;?
+22;16130595;Mai Quang;Thịnh;27/01/1998;DH16DTB;Công nghệ thông tin B;0;0;Đồng Nai;?
+23;16130600;Trần Nguyễn Anh;Thông;27/08/1998;DH16DTB;Công nghệ thông tin B;0;0;Bình Phước;?
+24;16130645;Nguyễn Văn;Tuấn;17/05/1998;DH16DTB;Công nghệ thông tin B;0;0;Đồng Nai;?
+25;17130005;Đào Thị Kim;Anh;27/09/1999;DH17DTB;Công nghệ thông tin B;0;0;Hồ Chí Minh;?
+26;17130008;Vũ Huỳnh Như;Anh;19/05/1999;DH17DTA;Công nghệ thông tin A;0;0;Nha Trang;?
+27;17130021;Phạm Thanh Ngọc;Đào;35892;DH17DTC;Công nghệ thông tin C;0;0;Đồng Nai;?
+28;17130025;Trần Quang;Diệm;36439;DH17DTA;Công nghệ thông tin A;0;0;Bình Phước;?
+29;17130044;Lăng Thị Mỹ;Duyên;15/08/1999;DH17DTA;Công nghệ thông tin A;0;0;Đồng Nai;?
+30;17130069;Nguyễn Minh;Hiếu;28/03/1999;DH17DTB;Công nghệ thông tin B;0;0;Hồ Chí Minh;?
+31;17130072;Hồ Ngọc;Hoan;16/09/1999;DH17DTA;Công nghệ thông tin A;0;0;Long An;?
+32;17130085;Nguyễn Tấn;Huy;30/07/1999;DH17DTB;Công nghệ thông tin B;0;0;Đồng Nai;?
+33;17130117;Phan Văn;Luận;13/07/1999;DH17DTB;Công nghệ thông tin B;0;0;Đồng Nai;?
+34;17130140;Đào Vũ Thảo;Nguyên;36504;DH17DTB;Công nghệ thông tin B;0;0;Bình Dương;?
+35;17130195;Tô Huy;Sơn;23/11/1999;DH17DTA;Công nghệ thông tin A;0;0;Nha Trang;?
+36;17130232;Trần Hàng Hải;Thông;24/06/1999;DH17DTB;Công nghệ thông tin B;0;0;Long Xuyên;?
+37;17130238;Võ Nguyễn Châu;Thuận;17/03/1999;DH17DTC;Công nghệ thông tin C;0;0;Đồng Nai;?
+38;17130280;Trần Xuân;VỸ;27/04/1999;DH17DTC;Công nghệ thông tin C;0;0;Bình Phước;?
+39;17130915;Trần Xuân;Trường;35617;DH17DTB;Công nghệ thông tin B;0;0;Đồng Nai;?
+40;18130003;Phan Hoàng;Ân;36589;DH18DTA;Công nghệ thông tin A;0;0;Hồ Chí Minh;?
+41;18130004;Trương Nguyễn Thiên;Ân;36835;DH18DTC;Công nghệ thông tin C;0;0;Bình Định;?
+42;18130019;Nguyễn Hữu;Cảnh;36657;DH18DTA;Công nghệ thông tin A;0;0;Đồng Nai;?
+43;18130022;Ngô Hoàng;Chương;16/04/2000;DH18DTA;Công nghệ thông tin A;0;0;Đồng Nai;?
+44;18130028;Nguyễn Công;Danh;36625;DH18DTA;Công nghệ thông tin A;0;0;Bình Dương;?
+?;?;?;?;?;?;?;?;?;?;?
+?;?;?;?;?;?;?;?;?;?;?

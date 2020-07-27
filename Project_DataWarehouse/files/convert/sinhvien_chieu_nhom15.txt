@@ -1,0 +1,21 @@
+STT;Mã sinh viên;Họ lót;Tên;Mã lớp;Tên lớp;ĐT liên lạc;Email;Ghi chú
+1;17130002;Ngô Vĩ;An;DH17DTB;Công nghệ thông tin b;0986574551;nvan@gmail.com;?
+2;17130010;Nguyễn Như;Bảo;DH17DTA;Công nghệ thông tin A;035498954;nhbao@gmail.com;?
+3;17130012;Lê Nguyễn Nhật;Bình;DH17DTA;Công nghệ thông tin A;0356874599;lnnbinh@gmail.com;?
+4;15130018;Vũ Như;Chương;DH15DTA;Công nghệ thông tin A;0876557516;vhchuong@gmail.com;?
+5;16130311;Phùng Quốc;Cường;DH16DTB;Công nghệ thông tin B;0451762589;pqcuong@gmail.com;?
+6;17130046;Bùi Hoàng;Gia;DH17DTB;Công nghệ thông tin b;0362792541;nhgia@gmail.com;?
+7;17130058;Trương Thị Mỹ;Hảo;DH17DTC;Công nghệ thông tin C;0378448075;ttmyhao@gmail.com;?
+8;17130055;Nguyễn Thị Thúy;Hằng;DH17DTB;Công nghệ thông tin b;0354853568;ntthang@gmail.com;?
+9;16130367;Nguyễn Thị;Hậu;DH16DTB;Công nghệ thông tin B;0822234212;nthau@gmail.com;?
+10;17130059;Trần Thanh;Hậu;DH17DTC;Công nghệ thông tin C;0777568498;tthau@gmail.com;?
+11;15130057;Phạm Minh;Hiển;DH15DTC;Công nghệ thông tin C;0385742658;pmhien@gmail.com;?
+12;16130373;Hồ Thanh;Hiệp;DH16DTB;Công nghệ thông tin B;01662312558;hthiep@gmail.com;?
+13;17130065;Đặng Trung;Hiếu;DH17DTA;Công nghệ thông tin A;0905856348;dthieu@gmail.com;?
+14;17130069;Nguyễn Minh;Hiếu;DH17DTB;Công nghệ thông tin b;0774416473;nmhieu@gmail.com;?
+15;17130077;Nguyễn Ngọc;Hồng;DH17DTB;Công nghệ thông tin b;0858769769;nnhong@gmail.com;?
+16;17130088;Phan Lê;Huy;DH17DTB;Công nghệ thông tin b;0776368652;plhuy@gmail.com;?
+17;17130090;Vũ Quốc;Huy;DH17DTA;Công nghệ thông tin A;0942025259;vqhuy@gmail.com;?
+18;17130081;Nguyễn Thanh;Hưng;DH17DTC;Công nghệ thông tin C;0353623031;nthung@gmail.com;?
+19;17130096;Trần Duy;Khang;DH17DTA;Công nghệ thông tin A;0378448075;tdkhang@gmail.com;?
+20;17130110;Nguyễn Thị Hồng;Loan;DH17DTB;Công nghệ thông tin b;0905929221;nthloan@gmail.com;?
