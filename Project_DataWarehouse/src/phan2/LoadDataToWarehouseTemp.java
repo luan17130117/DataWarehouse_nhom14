@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import connection.database.GetConnection;
 
 public class LoadDataToWarehouseTemp {
-	public static void loadDataToWarehouseTemp() {
+	public static void loadDataToWarehouseTemp(String table_staging, String table_warehouse, String db_staging,
+			String fieldName) {
 		Connection conn = new GetConnection().getConnection("staging");
-		String sql = "INSERT INTO warehouse_temp (s_key, STT, MSSV, HoLot, Ten, NgaySinh, MaLop, TenLop, SDT, Email, QueQuan, GhiChu) "
-				+ "SELECT 0, STT, MSSV, HoLot, Ten, NgaySinh, MaLop, TenLop, SDT, Email, QueQuan, GhiChu FROM sinhvien";
+		String sql = "INSERT INTO  warehouse_temp (s_key, " + fieldName + ") " + "SELECT 0, " + fieldName
+				+ " FROM sinhvien";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.executeUpdate();

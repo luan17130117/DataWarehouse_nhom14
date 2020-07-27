@@ -95,6 +95,10 @@ public class GetConnection {
 		return result;
 	}
 
+	public String getDbName() {
+		return dbName;
+	}
+
 	//
 	public static void main(String[] args) {
 		Connection conn = new GetConnection().getConnection("control");

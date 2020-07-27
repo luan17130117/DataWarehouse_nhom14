@@ -27,8 +27,8 @@ public class Staging {
 			// 1. Kết nối tới DB control
 			conn = new GetConnection().getConnection("control");
 			// 2. Tìm tất cả các file có trạng thái OK download và ở các nhóm đang active
-			pre_control = conn.prepareStatement("SELECT data_file_logs.id ,id_config, your_filename, table_staging, "
-					+ " data_file_configuaration.delimiter, localPath, fileName, number_column "
+			pre_control = conn.prepareStatement("SELECT data_file_logs.id ,id_config, your_filename, table_staging, table_warehouse, "
+					+ " data_file_configuaration.delimiter, localPath, fileName, number_column, fieldName "
 					+ "from data_file_logs JOIN data_file_configuaration "
 					+ "ON data_file_logs.id_config = data_file_configuaration.id" + " where "
 					+ "data_file_logs.status_file like 'Download ok' AND data_file_configuaration.isActive=1 ");
@@ -44,6 +44,8 @@ public class Staging {
 				hm.put("yourFileName", re.getString("your_filename"));
 				hm.put("delimiter", re.getString("delimiter"));
 				hm.put("number_column", Integer.toString(re.getInt("number_column")));
+				hm.put("fieldName", re.getString("fieldName"));
+				hm.put("table_warehouse", re.getString("table_warehouse"));
 				lst.add(hm);
 				System.out.println(hm);
 			}
@@ -62,9 +64,13 @@ public class Staging {
 	public static void loadStudentToStaging() {
 		ArrayList<HashMap<String, String>> lst = getFileInControl();
 		System.out.println(lst.size());
+		String db_staging= new GetConnection().getDbName();
 		// 6. Duyệt danh sách các file
 		try {
 			for (int i = 0; i < lst.size(); i++) {
+				String table_staging = lst.get(i).get("table_staging");
+				String fieldName = lst.get(i).get("fieldName");
+				String table_warehouse = lst.get(i).get("table_warehouse");
 				String fileNamei = lst.get(i).get("yourFileName");
 				String fileNameo = fileNamei.substring(0, fileNamei.lastIndexOf(".")) + ".txt";
 				String path = lst.get(i).get("dir") + File.separator + lst.get(i).get("fileName") + File.separator
@@ -99,29 +105,33 @@ public class Staging {
 					// giờ
 					// cập nhật
 					System.out.println(path + " không tồn tại");
-					updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "ERROR at Staging", -1);
+					updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "ERROR at Staging", -1, "");
 				} else {
 					// 8.2. Đọc file sinh viên và lưu vào một chuỗi string dưới dạng values là sql
-					String sql = "INSERT INTO " + lst.get(i).get("table_staging") + " VALUES"
+					String sql = "INSERT INTO " + table_staging + " VALUES"
 							+ loadStudentFromFile(file, lst.get(i));
 					// 9. Tiến hành load tất cả sinh viên vào DB staging từ câu sql và trả về số
 					// dòng đã được load thành công
 					int count = addStudentOnTable(sql);
-					/////Thu buoc 3
-					LoadDataToWarehouseTemp.loadDataToWarehouseTemp();
-					String sql2 = "TRUNCATE TABLE " + lst.get(i).get("table_staging");
+
+					///// Thu buoc 3
+					LoadDataToWarehouseTemp.loadDataToWarehouseTemp(table_staging, table_warehouse, db_staging, fieldName);
+					String sql2 = "TRUNCATE TABLE " + table_staging;
 					addStudentOnTable(sql2);
 					////////
+
 					if (count > 0) {
 						// 10.1. Cập nhật trạng thái trong data_file_logs là ERROR at Staging và ngày
 						// giờ cập nhật, số dòng load thành công = 0
-						updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "Staging ok", count);
+						updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "Staging ok", count,
+								lst.get(i).get("fileName"));
 						System.out.println(
 								"Thanh Cong:\t" + "file name: " + fileNamei + " ==> So dong thanh cong: " + count);
 					} else {
 						// 10.2. Cập nhật trạng thái trong data_file_logs là ERROR at Staging và ngày
 						// giờ cập nhật, số dòng load thành công
-						updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "Error at Staging", count);
+						updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "Error at Staging", count,
+								lst.get(i).get("fileName"));
 						System.out
 								.println("ERROR:\t" + "file name: " + fileNamei + " ==> So dong thanh cong: " + count);
 					}
@@ -136,16 +146,16 @@ public class Staging {
 	}
 
 //update trang thai len data file logs
-	public static void updateStatusToDataFileLogs(int id, String status, int count) {
+	public static void updateStatusToDataFileLogs(int id, String status, int count, String fileName) {
 		Connection conn = null;
 		PreparedStatement pre_control = null;
 		String sql = "";
 		if (count == -1) {
 			sql = "UPDATE data_file_logs SET " + "status_file='" + status
-					+ "', data_file_logs.time_staging=NOW() WHERE id=" + id;
+					+ "', data_file_logs.time_staging=NOW(), table_warehouse= " + fileName + " WHERE id=" + id;
 		} else {
 			sql = "UPDATE data_file_logs SET staging_load_count=" + count + ", status_file='" + status
-					+ "', data_file_logs.time_staging=NOW()  WHERE id=" + id;
+					+ "', data_file_logs.time_staging=NOW(), table_warehouse= 'wh_" + fileName + "' WHERE id=" + id;
 		} // sua GETDATE() = now() neu dung mySQL
 		try {
 			conn = new GetConnection().getConnection("control");
