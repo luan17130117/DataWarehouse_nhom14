@@ -20,13 +20,16 @@ public class Main {
 			int value = sc.nextInt();
 			if (value == 1) {
 				// Download
-//				System.out.println("Nhap so can tai: ");
-//				int n = sc.nextInt();
+				System.out.println("Nhap so can tai: ");
+				int n = sc.nextInt();
 				System.out.print("Bắt đầu tải: ");
 				DownloadFile load = new DownloadFile();
-				load.DownloadFie(value);
+				load.DownloadFie(n);
 				// staging
+				
+			} else if (value == 2) {
 				new Staging().loadStudentToStaging();
+				break;
 			} else if (value == 0) {
 				System.out.println("Hẹn gặp lại sau!");
 				break;
