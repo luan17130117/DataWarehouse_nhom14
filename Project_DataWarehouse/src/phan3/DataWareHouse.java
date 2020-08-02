@@ -18,6 +18,9 @@ public class DataWareHouse {
 	public static void main(String[] args) {
 //		new DataWareHouse().insertFromStagingToDW_OPTIMIZE("data_file_logs.status_file like 'Ok Staging'");
 		new DataWareHouse().insertFromStagingToDW_OPTIMIZE();
+		
+
+		
 	}
 
 //	public void insertFromStagingToDW_OPTIMIZE(String condition) {
@@ -49,8 +52,8 @@ public class DataWareHouse {
 //							+ "on data_file_logs.id_config=data_file_configuaration.id "
 //							+ "where data_file_configuaration.isActive=1 AND " + condition);
 			pre_control = con_Control.prepareStatement("select data_file_logs.id ,data_file_logs.id_config, "
-					+ "data_file_configuaration.data_warehouse_sql," 
-					+ " data_file_logs.table_staging" + " from data_file_logs JOIN data_file_configuaration "
+					+ "data_file_configuaration.data_warehouse_sql," + " data_file_logs.table_staging"
+					+ " from data_file_logs JOIN data_file_configuaration "
 					+ "on data_file_logs.id_config=data_file_configuaration.id "
 					+ "where data_file_configuaration.isActive=1");
 			// 3. Trả về Result set chứa các record thỏa điều kiện
@@ -101,6 +104,7 @@ public class DataWareHouse {
 					try {
 						java.util.Date date = formatter.parse(ngaySinh);
 						sqlDate = new java.sql.Date(date.getTime());
+						
 						// 8. Mở connection database data_warehouse
 						conn_DW1 = new GetConnection().getConnection("warehouse");
 						int index_date = getDate(conn_DW1, sqlDate);
@@ -113,11 +117,11 @@ public class DataWareHouse {
 						ResultSet re_DW = pre_DW.executeQuery();
 						int sk_DW = 0;
 						String checkExist = "NO";
-						String sttTemp = null;
+
 						String mssvTemp = null;
 						String hoLotTemp = null;
 						String tenTemp = null;
-						Date ngaySinhTemp = null;
+						String ngaySinhTemp = null;
 						String maLopTemp = null;
 						String tenLopTemp = null;
 						String sdtTemp = null;
@@ -127,30 +131,39 @@ public class DataWareHouse {
 
 						while (re_DW.next()) { // Record?
 							// Yes: Nhánh 11.2
-							sttTemp = re_DW.getString("STT");
 							mssvTemp = re_DW.getString("MSSV");
+//							System.out.println(mssvTemp);
 							hoLotTemp = re_DW.getString("HoLot");
+//							System.out.println(hoLotTemp);
 							tenTemp = re_DW.getString("Ten");
-							ngaySinhTemp = re_DW.getDate("NgaySinh");
+//							System.out.println(tenTemp);
+							ngaySinhTemp = re_DW.getString("NgaySinh");
+//							System.out.println(ngaySinhTemp);
 							maLopTemp = re_DW.getString("MaLop");
+//							System.out.println(maLopTemp);
 							tenLopTemp = re_DW.getString("TenLop");
+//							System.out.println(tenLopTemp);
 							sdtTemp = re_DW.getString("SDT");
+//							System.out.println(sdtTemp);
 							emailTemp = re_DW.getString("Email");
+//							System.out.println(emailTemp);
 							queQuanTemp = re_DW.getString("QueQuan");
+//							System.out.println(queQuanTemp);
 							ghiChuTemp = re_DW.getString("GhiChu");
-							System.out.println("lalala");
+//							System.out.println(ghiChuTemp);
+//							System.out.println("lalala");
 							// 11.2.1 So sách các trường còn lại của SV Staging có gì khác không so với
 							// SV trong DataWarehouse không?
-							if (sttTemp.equalsIgnoreCase(stt) && mssvTemp.equalsIgnoreCase(mssv)
-									&& hoLotTemp.equalsIgnoreCase(hoLot) && tenTemp.equalsIgnoreCase(ten)
-									&& ngaySinhTemp.equals(sqlDate) && maLopTemp.equalsIgnoreCase(maLop)
-									&& tenLopTemp.equalsIgnoreCase(tenLop) && sdtTemp.equalsIgnoreCase(sdt)
-									&& emailTemp.equalsIgnoreCase(email) && queQuanTemp.equalsIgnoreCase(queQuan)
-									&& ghiChuTemp.equalsIgnoreCase(ghiChu)) {
+							if (mssvTemp.equalsIgnoreCase(mssv) && hoLotTemp.equalsIgnoreCase(hoLot)
+									&& tenTemp.equalsIgnoreCase(ten) && ngaySinhTemp.equals(ngaySinh)
+									&& maLopTemp.equalsIgnoreCase(maLop) && tenLopTemp.equalsIgnoreCase(tenLop)
+									&& sdtTemp.equalsIgnoreCase(sdt) && emailTemp.equalsIgnoreCase(email)
+									&& queQuanTemp.equalsIgnoreCase(queQuan) && ghiChuTemp.equalsIgnoreCase(ghiChu)) {
 								checkExist = "NOCHANGE";// 2 dong y het nhau
+								System.out.println("khongdoi");
 							} else {
-								// 11.2.2.1. Lấy sk của sinh viên đó
-								sk_DW = re_DW.getInt("sk");
+								// 11.2.2.1. Lấy Sk_SV của sinh viên đó
+								sk_DW = re_DW.getInt("Sk_SV");
 								checkExist = "YES";// co 1 truong nao do khac
 								System.out.println("lalala");
 							}
@@ -171,10 +184,13 @@ public class DataWareHouse {
 							value_update += sk_DW + ", ";
 							// 11.2.2.4.Thêm dòng SV vào table Student của data_warehouse
 							pre_DW = conn_DW1.prepareStatement(
-									"insert into student( STT , MSSV, HoLot, Ten, NgaySinh , MaLop, TenLop, SDT, Email, QueQuan, GhiChu) values "
-											+ "( '" + stt + "', '" + mssv + "', '" + "', N'" + hoLot + "', N'" + ten
-											+ "', '" + ngaySinh + "', '" + maLop + "', '" + tenLop + "', '" + sdt
-											+ "', '" + email + "', '" + queQuan + "', '" + ghiChu + ")");
+									
+									"insert into student( STT , MSSV, HoLot, Ten, NgaySinh ,index_ngaysinh, MaLop, TenLop, SDT, Email, QueQuan, GhiChu) values "
+											+ "( '" + stt + "', '" + mssv + "', N'" + hoLot + "', N'" + ten
+											+ "', '" + ngaySinh +"', '" + index_date +  "', '" + maLop + "', '" + tenLop + "', '" + sdt
+											+ "', '" + email + "', '" + queQuan + "', '" + ghiChu + "')");
+							
+				
 //
 							pre_DW.executeUpdate();
 
@@ -190,7 +206,7 @@ public class DataWareHouse {
 									+ queQuan + ", " + ghiChu + ", ");
 							// 11.1.2. Thêm thông tin SV chuỗi value_insert
 							value_sql += "(' " + stt + "', '" + mssv + "', N'" + hoLot + "', N'" + ten + "', '"
-									+index_date+ "', '" + maLop + "', '" + tenLop + "', '" + sdt + "', '" + email
+									+ ngaySinh + "', '" + index_date+ "', '" + maLop + "', '" + tenLop + "', '" + sdt + "', '" + email
 									+ "', '" + queQuan + "', '" + ghiChu + "'),";
 							// 11.1..3. tăng số dòng thêm mới lên
 							count_NEW++;
@@ -222,25 +238,24 @@ public class DataWareHouse {
 					// ****** het table trong staging
 					// ******* cap nhat vao DW
 					if (count_UPDATE > 0) {
-
 						value_update = value_update.substring(0, value_update.lastIndexOf(","));// cat dau , cuoi cung
 						pre_DW = conn_DW1.prepareStatement(
-								"update student set isActive = 0, date_change=getDate() where sk IN ( " + value_update
-										+ ");");
+								"update student set isActive = 0 where Sk_SV IN ( "
+										+ value_update + ");");
 						int update = pre_DW.executeUpdate();
 						System.out.println("so dong da update: " + update);
 					}
 					if (count_NEW > 0) {
 						// **them du lieu vao DW
-						
+
 						value_sql = value_sql.substring(0, value_sql.lastIndexOf(","));// cat dua phay cuoi cung
 						value_sql += ";";
 						System.out.println("bbbbbbbbb" + value_sql);
 						pre_DW = conn_DW1.prepareStatement(
-								"insert into student(STT, MSSV, HoLot, Ten, NgaySinh , MaLop, TenLop, SDT, Email, QueQuan, GhiChu) values "
+								"insert into student(STT, MSSV, HoLot, Ten, NgaySinh ,index_ngaysinh, MaLop, TenLop, SDT, Email, QueQuan, GhiChu) values "
 										+ value_sql);
 						int i = pre_DW.executeUpdate();
-						count_NEW= +i;
+						count_NEW = +i;
 						System.out.println("So dong insert vao: " + i);
 					}
 
@@ -283,7 +298,8 @@ public class DataWareHouse {
 		PreparedStatement pre = null;
 		try {
 			// 11.1.1. Tìm Date_SK của ngày sinh sinh trong Date_dim table
-			pre = conn_DW.prepareStatement("select sk_date from date_dim where Full_date like ?");
+//			select sk_date from database_warehouse.date_dim where Full_date =  CONVERT('1999-01-01', DATE);
+			pre = conn_DW.prepareStatement("select sk_date from date_dim where Full_date =  CONVERT(?, DATE)");
 			pre.setDate(1, dob);
 			ResultSet re_date = pre.executeQuery();
 			int sk = 0;
