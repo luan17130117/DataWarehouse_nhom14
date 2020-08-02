@@ -17,20 +17,20 @@ import connection.database.GetConnection;
 // Load Date_Dim vào Warehouse
 public class Date_Dim {
 	// Tạo số lượng record
-	public static final int NUMBER_OF_RECORD = 10;
+	public static final int NUMBER_OF_RECORD = 1000;
 	
 	//
 	public static void main(String[] args) throws SQLException {
 		int stt = 0;
 		int sk_date = 0;
-		int month_since_2010 = 1;
-		int day_since_2010 = 0;
-		int quarter_since_2010_temp = 0;
+		int month_since_1999 = 1;
+		int day_since_1999 = 0;
+		int quarter_since_1999_temp = 0;
 		int quarter_temp = 1;
 		// Kết nối đếm Data Warehouse
 		Connection connection = new GetConnection().getConnection("warehouse");
 		// Ngày bắt đầu
-		DateTime startDateTime = new DateTime(2009, 12, 31, 0, 0, 0);
+		DateTime startDateTime = new DateTime(1998, 12, 31, 0, 0, 0);
 		DateTime startDateTimeforMonth = startDateTime.plus(Period.days(1));
 		// Tạo dữ liệu insert vào data warehouse
 		while (stt <= NUMBER_OF_RECORD) {
@@ -43,12 +43,12 @@ public class Date_Dim {
 			SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 			// Ngày tháng năm
 			String full_date = dt.format(calendar.getTime()); // 2
-			// Ngày từ năm 2010
-			day_since_2010 += 1; // 3
-			int month_since_2010_temp = Months
+			// Ngày từ năm 1999
+			day_since_1999 += 1; // 3
+			int month_since_1999_temp = Months
 					.monthsBetween(startDateTimeforMonth.toLocalDate(), startDateTime.toLocalDate()).getMonths();
-			// tháng từ năm 2010
-			month_since_2010 = month_since_2010_temp + 1; //4
+			// tháng từ năm 1999
+			month_since_1999 = month_since_1999_temp + 1; //4
 			// Thứ trong tuần
 			String day_of_week = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US); // 5
 			// Lịch tháng
@@ -95,19 +95,19 @@ public class Date_Dim {
 			dt = new SimpleDateFormat("yyyy-MM-dd");
 			// Bắt đầu thứ 2 của năm
 			String week_monday_start = dt.format(startOfWeek.toDate()); // 16
-			// Qúy của năm 2010
+			// Qúy của năm 1999
 			int month = startDateTime.getMonthOfYear();
 			int quarter = month % 3 == 0 ? (month / 3) : (month / 3) + 1;
 			if (quarter == quarter_temp) {
-				quarter_since_2010_temp = quarter_since_2010_temp + 1;
+				quarter_since_1999_temp = quarter_since_1999_temp + 1;
 				quarter_temp += 1;
 				if (quarter_temp > 4) {
 					quarter_temp = 1;
 				}
 			}
 
-			int quarter_since_2010 = 0;
-			quarter_since_2010 += quarter_since_2010_temp; //17
+			int quarter_since_1999 = 0;
+			quarter_since_1999 += quarter_since_1999_temp; //17
 
 			// Qúy của tháng trong năm
 			String quarter_year = startDateTime.getYear() + "";
@@ -125,11 +125,11 @@ public class Date_Dim {
 //			System.out.println(output);
 			
 			// bảng date_dim trong database_warehouse
-			String datedim = "Insert into date_dim values ('"+sk_date + "','" + full_date + "','" + day_since_2010 + "','" + month_since_2010 + "','"
+			String datedim = "Insert into date_dim values ('"+sk_date + "','" + full_date + "','" + day_since_1999 + "','" + month_since_1999 + "','"
 					+ day_of_week + "','" + calendar_month + "','" + calendar_year + "','" + calendar_year_month + "','"
 					+ day_of_month + "','" + day_of_year + "','" + week_of_year_sunday + "','" + year_week_sunday + "','"
 					+ week_sunday_start + "','" + week_of_year_monday + "','" + year_week_monday + "','" + week_monday_start
-					+ "','" + holiday + "','" + day_type+"','"+quarter_of_year+"','"+quarter_since_2010+"') ";
+					+ "','" + holiday + "','" + day_type+"','"+quarter_of_year+"','"+quarter_since_1999+"') ";
 			PreparedStatement ps = connection.prepareStatement(datedim);
 			ps.executeUpdate(datedim);
 			stt++;
