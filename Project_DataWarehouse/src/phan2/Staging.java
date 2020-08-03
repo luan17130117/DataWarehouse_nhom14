@@ -11,12 +11,95 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import connection.database.GetConnection;
 
 //Step2: Load data file from local to DB Staging
 public class Staging {
+	// load sinh vien vao db staging theo tung file
+	public static void loadStudentToStaging() {
+		ArrayList<HashMap<String, String>> lst = getFileInControl();
+		System.out.println(lst.size());
+		String db_staging = new GetConnection().getDbName();
+		// 6. Duyệt danh sách các file
+//		try {
+		for (int i = 0; i < lst.size(); i++) {
+			String table_staging = lst.get(i).get("table_staging");
+			String fieldName = lst.get(i).get("fieldName");
+			String table_warehouse = lst.get(i).get("table_warehouse");
+			String fileNamei = lst.get(i).get("yourFileName");
+			String fileNameo = fileNamei.substring(0, fileNamei.lastIndexOf(".")) + ".txt";
+			String path = lst.get(i).get("dir") + File.separator + lst.get(i).get("fileName") + File.separator
+					+ fileNamei;
+			String pathConvert = lst.get(i).get("dir") + File.separator + "convert" + File.separator + fileNameo;
+			File file = null;
+			////
+			if (fileNamei.substring(fileNamei.lastIndexOf(".")).equalsIgnoreCase(".xlsx")
+					|| fileNamei.substring(fileNamei.lastIndexOf(".")).equalsIgnoreCase(".xls")) {
+				System.out.println(pathConvert);
+				file = new File(pathConvert);
+				try {
+					ConvertExcelToTxt.convertExcelToTxt(path, pathConvert, ";");
+				} catch (IOException | NullPointerException e) {
+					// TODO Auto-generated catch block
+					System.out.println("<---> ERROR [ConvertExcelToTxt]: " + e.getMessage());
+				}
+				path = pathConvert;
+				fileNamei = fileNameo;
+			} else if (fileNamei.substring(fileNamei.lastIndexOf(".")).equalsIgnoreCase(".csv")
+					|| fileNamei.substring(fileNamei.lastIndexOf(".")).equalsIgnoreCase(".txt")) {
+				System.out.println(path);
+				file = new File(path);
+			} else {
+				System.out.println("File không đúng định dạng");
+				updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "ERROR at Staging", -1, "");
+				continue;
+			}
+			// 7. Kiểm tra file tồn tại
+			if (!file.exists()) {
+				// 8.1. Cập nhật trạng thái trong data_2file_logs là ERROR at Staging và ngày
+				// giờ
+				// cập nhật
+				System.out.println(path + " không tồn tại");
+				updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "ERROR at Staging", -1, "");
+			} else {
+				// 8.2. Đọc file sinh viên và lưu vào một chuỗi string dưới dạng values là sql
+				String sql = "INSERT INTO " + table_staging + " VALUES" + loadStudentFromFile(file, lst.get(i));
+				// 9. Tiến hành load tất cả sinh viên vào DB staging từ câu sql và trả về số
+				// dòng đã được load thành công
+				int count = addStudentOnTable(sql);
+
+				///// Thu buoc 3
+//					LoadDataToWarehouseTemp.loadDataToWarehouseTemp(table_staging, table_warehouse, db_staging, fieldName);
+//					String sql2 = "TRUNCATE TABLE " + table_staging;
+//					addStudentOnTable(sql2);
+				////////
+
+				if (count > 0) {
+					// 10.1. Cập nhật trạng thái trong data_file_logs là ERROR at Staging và ngày
+					// giờ cập nhật, số dòng load thành công = 0
+					updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "Staging ok", count,
+							lst.get(i).get("fileName"));
+					System.out
+							.println("Thanh Cong:\t" + "file name: " + fileNamei + " ==> So dong thanh cong: " + count);
+				} else {
+					// 10.2. Cập nhật trạng thái trong data_file_logs là ERROR at Staging và ngày
+					// giờ cập nhật, số dòng load thành công
+					updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "Error at Staging", count,
+							lst.get(i).get("fileName"));
+					System.out.println("ERROR:\t" + "file name: " + fileNamei + " ==> So dong thanh cong: " + count);
+				}
+
+			}
+
+		}
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			System.out.println("<---> ERROR [LoadStudentToStaging]: " + e.getMessage());
+//		}
+	}
 
 	// tra ve danh sach cac file da tai ve tu SCP va san sang load vao staging
 	public static ArrayList<HashMap<String, String>> getFileInControl() {
@@ -27,11 +110,12 @@ public class Staging {
 			// 1. Kết nối tới DB control
 			conn = new GetConnection().getConnection("control");
 			// 2. Tìm tất cả các file có trạng thái OK download và ở các nhóm đang active
-			pre_control = conn.prepareStatement("SELECT data_file_logs.id ,id_config, your_filename, table_staging, table_warehouse, "
-					+ " data_file_configuaration.delimiter, localPath, fileName, number_column, fieldName "
-					+ "from data_file_logs JOIN data_file_configuaration "
-					+ "ON data_file_logs.id_config = data_file_configuaration.id" + " where "
-					+ "data_file_logs.status_file like 'Download ok' AND data_file_configuaration.isActive=1 ");
+			pre_control = conn.prepareStatement(
+					"SELECT data_file_logs.id ,id_config, your_filename, table_staging, table_warehouse, "
+							+ " data_file_configuaration.delimiter, localPath, fileName, number_column, fieldName "
+							+ "from data_file_logs JOIN data_file_configuaration "
+							+ "ON data_file_logs.id_config = data_file_configuaration.id" + " where "
+							+ "data_file_logs.status_file like 'Download ok' AND data_file_configuaration.isActive=1 ");
 			// 3. Nhận được ResultSet chứa các record thỏa điều kiện truy xuất
 			ResultSet re = pre_control.executeQuery();
 			// 4. Chạy từng dòng record và lấy các giá trị put vào Map
@@ -56,117 +140,53 @@ public class Staging {
 			// 5.2. Trả về danh sách các file
 			return lst;
 		} catch (Exception e) {
+			System.out.println("<---> ERROR [Get File In Control]: " + e.getMessage());
 			return lst;
 		}
 	}
 
-	// load sinh vien vao db staging theo tung file
-	public static void loadStudentToStaging() {
-		ArrayList<HashMap<String, String>> lst = getFileInControl();
-		System.out.println(lst.size());
-		String db_staging= new GetConnection().getDbName();
-		// 6. Duyệt danh sách các file
+	// tra ve values danh sach cac sinh vien trong cau sql
+	public static String loadStudentFromFile(File file, HashMap<String, String> map) {
+		String value = "";
 		try {
-			for (int i = 0; i < lst.size(); i++) {
-				String table_staging = lst.get(i).get("table_staging");
-				String fieldName = lst.get(i).get("fieldName");
-				String table_warehouse = lst.get(i).get("table_warehouse");
-				String fileNamei = lst.get(i).get("yourFileName");
-				String fileNameo = fileNamei.substring(0, fileNamei.lastIndexOf(".")) + ".txt";
-				String path = lst.get(i).get("dir") + File.separator + lst.get(i).get("fileName") + File.separator
-						+ fileNamei;
-				String pathConvert = lst.get(i).get("dir") + File.separator + "convert" + File.separator + fileNameo;
-//				String pathConvert = lst.get(i).get("dir") + File.separator + lst.get(i).get("fileName")
-//						+ File.separator + fileNameo;
-				File file = null;
-				////
-				if (fileNamei.substring(fileNamei.lastIndexOf(".")).equalsIgnoreCase(".xlsx")
-						|| fileNamei.substring(fileNamei.lastIndexOf(".")).equalsIgnoreCase(".xls")) {
-					System.out.println(pathConvert);
-					file = new File(pathConvert);
-					try {
-						ConvertExcelToTxt.convertExcelToTxt(path, pathConvert, ";");
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						System.out.println("<---> ERROR [ConvertExcelToTxt]: " + e.getMessage());
+			// Mở file để đọc dữ liệu lên, có kèm theo encoding
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+			// Đọc bỏ phần header
+			reader.readLine();
+			// Bắt đầu từ hàng thứ 2, đọc từng hàng dữ liệu đến khi cuối file
+			String data = reader.readLine();
+			// lay tung hang len
+			while (data != null) {
+				System.out.println(data);
+				// cắt hàng theo delimeter lưu trên data_file_logs
+				StringTokenizer st = new StringTokenizer(data, map.get("delimiter"));
+				System.out.println("count ST: " + st.countTokens());
+				// Lưu hàng sinh viên đó vào chuỗi value
+				value += "('" + st.nextToken() + "'";
+				for (int i = 1; i < Integer.parseInt(map.get("number_column")); i++) {
+//						st.hasMoreTokens();
+					String stt = "";
+					if (st.hasMoreTokens()) {
+						stt = st.nextToken();
 					}
-					path = pathConvert;
-					fileNamei = fileNameo;
-				} else if (fileNamei.substring(fileNamei.lastIndexOf(".")).equalsIgnoreCase(".csv")
-						|| fileNamei.substring(fileNamei.lastIndexOf(".")).equalsIgnoreCase(".txt")) {
-					System.out.println(path);
-					file = new File(path);
-				} else {
-					continue;
-				}
-				// 7. Kiểm tra file tồn tại
-				if (!file.exists()) {
-					// 8.1. Cập nhật trạng thái trong data_2file_logs là ERROR at Staging và ngày
-					// giờ
-					// cập nhật
-					System.out.println(path + " không tồn tại");
-					updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "ERROR at Staging", -1, "");
-				} else {
-					// 8.2. Đọc file sinh viên và lưu vào một chuỗi string dưới dạng values là sql
-					String sql = "INSERT INTO " + table_staging + " VALUES"
-							+ loadStudentFromFile(file, lst.get(i));
-					// 9. Tiến hành load tất cả sinh viên vào DB staging từ câu sql và trả về số
-					// dòng đã được load thành công
-					int count = addStudentOnTable(sql);
-
-					///// Thu buoc 3
-					LoadDataToWarehouseTemp.loadDataToWarehouseTemp(table_staging, table_warehouse, db_staging, fieldName);
-					String sql2 = "TRUNCATE TABLE " + table_staging;
-					addStudentOnTable(sql2);
-					////////
-
-					if (count > 0) {
-						// 10.1. Cập nhật trạng thái trong data_file_logs là ERROR at Staging và ngày
-						// giờ cập nhật, số dòng load thành công = 0
-						updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "Staging ok", count,
-								lst.get(i).get("fileName"));
-						System.out.println(
-								"Thanh Cong:\t" + "file name: " + fileNamei + " ==> So dong thanh cong: " + count);
+					if (stt.isEmpty()) {
+						value += ",'?'";
 					} else {
-						// 10.2. Cập nhật trạng thái trong data_file_logs là ERROR at Staging và ngày
-						// giờ cập nhật, số dòng load thành công
-						updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "Error at Staging", count,
-								lst.get(i).get("fileName"));
-						System.out
-								.println("ERROR:\t" + "file name: " + fileNamei + " ==> So dong thanh cong: " + count);
+						value += ", '" + stt + "'";
 					}
-
 				}
-
+				value += "), ";
+				// lay hang tiep theo len
+				data = reader.readLine();
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("<---> ERROR [LoadStudentToStaging]: " + e.getMessage());
+			value = value.substring(0, value.lastIndexOf(","));
+			value += ";";
+			reader.close();
+		} catch (IOException | NoSuchElementException | StringIndexOutOfBoundsException e) {
+			System.out.println("<---> ERROR [Load Student From File]: " + e.getMessage());
+//				System.out.println("<---> ERROR [Load Student From File]: " + e.toString());
 		}
-	}
-
-//update trang thai len data file logs
-	public static void updateStatusToDataFileLogs(int id, String status, int count, String fileName) {
-		Connection conn = null;
-		PreparedStatement pre_control = null;
-		String sql = "";
-		if (count == -1) {
-			sql = "UPDATE data_file_logs SET " + "status_file='" + status
-					+ "', data_file_logs.time_staging=NOW(), table_warehouse= " + fileName + " WHERE id=" + id;
-		} else {
-			sql = "UPDATE data_file_logs SET staging_load_count=" + count + ", status_file='" + status
-					+ "', data_file_logs.time_staging=NOW(), table_warehouse= 'wh_" + fileName + "' WHERE id=" + id;
-		} // sua GETDATE() = now() neu dung mySQL
-		try {
-			conn = new GetConnection().getConnection("control");
-			pre_control = conn.prepareStatement(sql);
-			pre_control.executeUpdate();
-			pre_control.close();
-			conn.close();
-			System.out.println("Upload status thanh cong!");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		return value;
 	}
 
 	// add tat ca sinh vien tu file vao bang
@@ -181,56 +201,36 @@ public class Staging {
 			pre.close();
 			conn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+//				e.printStackTrace();
+			System.out.println("<---> ERROR [Add Student On Table]: " + e.getMessage());
 			return 0;
 		}
 		return count;
 	}
 
-	// tra ve values danh sach cac sinh vien trong cau sql
-	public static String loadStudentFromFile(File file, HashMap<String, String> map) {
-		String value = "";
+	// update trang thai len data file logs
+	public static void updateStatusToDataFileLogs(int id, String status, int count, String fileName) {
+		Connection conn = null;
+		PreparedStatement pre_control = null;
+		String sql = "";
+		if (count == -1) {
+			sql = "UPDATE data_file_logs SET " + "status_file='" + status
+					+ "', data_file_logs.time_staging=NOW() WHERE id=" + id;
+		} else {
+			sql = "UPDATE data_file_logs SET staging_load_count=" + count + ", status_file='" + status
+					+ "', data_file_logs.time_staging=NOW(), table_warehouse= 'wh_" + fileName + "' WHERE id=" + id;
+		} // sua GETDATE() = now() neu dung mySQL
 		try {
-			// Mở file để đọc dữ liệu lên, có kèm theo encoding
-			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-			// Đọc bỏ phần header
-			reader.readLine();
-			// Bắt đầu từ hàng thứ 2, đọc từng hàng dữ liệu đến khi cuối file
-			String data = reader.readLine();
-			System.out.println(data);
-			// lay tung hang len
-			while (data != null) {
-				// cắt hàng theo delimeter lưu trên data_file_logs
-				StringTokenizer st = new StringTokenizer(data, map.get("delimiter"));
-				System.out.println("count ST: " + st.countTokens());
-				// Lưu hàng sinh viên đó vào chuỗi value
-				value += "('" + st.nextToken() + "'";
-				for (int i = 1; i < Integer.parseInt(map.get("number_column")); i++) {
-					st.hasMoreTokens();
-					String stt = "";
-					if (st.hasMoreTokens()) {
-						stt = st.nextToken();
-					}
-					if (stt.isEmpty()) {
-						value += ",'?'";
-					} else {
-						value += ", '" + stt + "'";
-					}
-				}
-				value += "), ";
-				// lay hang tiep theo len
-				data = reader.readLine();
-				if (data != null) {
-					System.out.println(data);
-				}
-			}
-			value = value.substring(0, value.lastIndexOf(","));
-			value += ";";
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+			conn = new GetConnection().getConnection("control");
+			pre_control = conn.prepareStatement(sql);
+			pre_control.executeUpdate();
+			pre_control.close();
+			conn.close();
+			System.out.println("Upload status thanh cong!");
+		} catch (Exception e) {
+//			e.printStackTrace();
+			System.out.println("<---> ERROR [Update Status To Data File Logs]: " + e.getMessage());
 		}
-		return value;
 	}
 
 	public static void main(String[] args) {
