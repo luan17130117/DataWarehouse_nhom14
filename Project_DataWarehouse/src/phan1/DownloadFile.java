@@ -26,15 +26,16 @@ public class DownloadFile {
 	}
 
 	// Phương thức download file nhận vào tham số key từ table configuaration
+	// 1. Nhập key n cần tải trong table data_file_configuaration
 	public void DownloadFie(int n) throws ClassNotFoundException, SQLException {
-		// 1. Kết nối tới Database database_control
+	// 2. Kết nối tới Database database_control
 		Connection connection = new GetConnection().getConnection("control_db");
-		// 2. Kết nối tới bảng data_file_configuaration
+	// 3. Kết nối tới bảng data_file_configuaration
 		String sql = "SELECT id, fileName, hostName, port, userName, passWord, remotePath, localPath FROM data_file_configuaration Where id=" + n;
 		PreparedStatement ps = connection.prepareStatement(sql);
-		// 3. Nhận resultSet chứa các record truy xuất
+	// 4. Nhận resultSet chứa các record truy xuất
 		ResultSet rs = ps.executeQuery();
-		// 4. Duyệt record
+	// 5. Duyệt record
 		rs.next();
 		String id = Integer.toString(rs.getInt("id"));
 		String fileName = rs.getString("fileName");
@@ -48,16 +49,16 @@ public class DownloadFile {
 		// In ra màn hình kiểm tra 
 		System.out.println(id + "-" + fileName);
 
-		// 5. Kết nối và xác thực đến Server Cource
+	// 6. Kết nối và xác thực đến Server Source
 		CkSsh ssh = new CkSsh();
 		CkGlobal ck = new CkGlobal();
 		ck.UnlockBundle("Download");
 		// Kết nối Server Cource với hostName: drive.ecepvn.org và port: 2227
 		boolean success = ssh.Connect(hostName, port);
 		if (success != true) {
-			// 5.1 In thông báo lỗi kết nối ra màn hình
+			// 6.1 In thông báo lỗi kết nối ra màn hình
 			System.out.println("Kết nối đến server source bị lỗi...");
-			// 5.2 Gửi mail thông báo lỗi kết nối
+			// 6.2 Gửi mail thông báo lỗi kết nối
 			SendMail.sendMail("17130117@st.hcmuaf.edu.vn", "Data Warehouse", id + " " + fileName + " bị lỗi kết nối đến server");
 			return;
 		}
@@ -78,17 +79,15 @@ public class DownloadFile {
 			System.out.println(scp.lastErrorText());
 			return;
 		}
-		// 6. Gọi hàm Download để tải file
+	// 7. Gọi hàm SyncTreeDownload(remotePath, localPath, 2, false) để tải file
 		// Tải tất cả file bắt đầu tên fileName: sinhvien*.* (nhận vào tên file có kí tự đại diện)
 		scp.put_SyncMustMatch(fileName + "*.*");
 		// Tạo folder tên fileName
 		localPath += "/" + fileName;
 		// Tải xuống tất cả các file có tên sinhvien*.*
 		success = scp.SyncTreeDownload(remotePath, localPath, 2, false);
-		// 7. In thông báo tải file ra màn hình
-		// 7.1 Nếu file tải thành công
+	// 8. In thông báo tải file thành công ra màn hình
 		System.out.println("Tải thành công");
-
 		// Kiểm tra tải file nếu tải không thành công
 		if (success != true) {
 			// 7.2.1 In thông báo lỗi ra màn hìn
@@ -97,13 +96,13 @@ public class DownloadFile {
 			SendMail.sendMail("17130117@st.hcmuaf.edu.vn", "Warehouse", id + " " + fileName + ": Tải bị lỗi");
 			return;
 		}
-		// 8. Ngắt kết nối đến server
+	// 9. Ngắt kết nối đến server
 		ssh.Disconnect();
 		// Lấy danh sách file tải trong local
 		List<File> listFile = listFile(localPath);
-		// 9. Kiểm tra file tải
+	// 10. Kiểm tra file tải và ghi vào bảng data_file_logs
 		checkFile(id, listFile, fileName);
-		// 10. Đóng kết nối
+	// 11. Đóng kết nối
 		connection.close();
 
 	}
@@ -122,29 +121,30 @@ public class DownloadFile {
 
 	// Kiểm tra file và ghi vào log
 	public void checkFile(String id, List<File> listFile, String fileName) throws SQLException {
+		// Kết nối tới table data_file_logs trong database control
 		Connection connection = new GetConnection().getConnection("control_db");
 		for (int i = 0; i < listFile.size(); i++) {
 			File f = listFile.get(i);
-			// Kiểm tra tên file đã tồn tại trong table log chưa
+			// Kiểm tra tên file đã tồn tại trong table data_file_logs hay chưa
 			if(checkLog(f.getName())) {
-			// 9.1 Nếu file tải thành công
+			// 10.1 Kiểm tra file tải về
 			if (f.length() > 0) {
-				// 9.1.1 Ghi lai log
+				// 10.1.1 Ghi vào log với trạng thái status_file=download ok
 				String log = "Insert into data_file_logs(id_config, your_fileName, status_file, time_download) values ('"
 						+ id + "','" + f.getName() + "','Download ok',NOW()) ";
 				PreparedStatement pslog = connection.prepareStatement(log);
 				pslog.executeUpdate(log);
-				// 9.1.2 In thông báo ra màn hình
+				// 10.1.2 In thông báo ra màn hình
 				System.out.println((i + 1) + ": " + f.getName() + ": " + "Đã ghi vào table_log...");
 			}
 			
-			// 9.2 Nếu file tải bị lỗi
+			// 10.2 Nếu file tải bị lỗi
 			else {
-				// 9.2.1 In thông báo lỗi ra màn hình
+				// 10.2.1 In thông báo lỗi ra màn hình
 				System.out.println((i + 1) + ": " + f.getName() + ": " + " Bị lỗi...");
-				// 9.2.2 Gửi mail thông báo lỗi
+				// 10.2.2 Gửi mail thông báo lỗi
 				SendMail.sendMail("17130117@st.hcmuaf.edu.vn", "Warehouse", (i + 1) + " " + f.getName() + ": Bị lỗi");
-				// 9.2.3 Ghi lại log file bị lỗi
+				// 10.2.3 Ghi lại log file bị lỗi
 				String log = "Insert into data_file_logs(id_config,your_fileName, status_file, time_download) values ('"
 						+ id + "','" + f.getName()+ "', 'Download error',NOW()) ";
 				PreparedStatement pslog = connection.prepareStatement(log);
@@ -152,22 +152,24 @@ public class DownloadFile {
 			}
 		}
 		}
+		// Đóng kết nối
 		connection.close();
 	}
-	// Kiểm tra tên file đã tồn tại trong table log chưa
+	// Kiểm tra tên file đã tồn tại trong bảng data_file_logs chưa
 	public boolean checkLog(String fileName) throws SQLException {
-//		System.out.println("File Name: "+ fileName);
+		// Kết nối tới table data_file_logs trong database control
 		Connection connection = new GetConnection().getConnection("control_db");
 		String sql = "SELECT your_filename FROM data_file_logs";
 		PreparedStatement ps = connection.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()) {
 		String fileNameLog = rs.getString("your_filename");
-//		System.out.println("fileName_Log: "+fileNameLog);
+		// Kiểm tra tên file tồn tại
 		if(fileName.equals(fileNameLog)) {
 			return false;
 		}
 		}
+		// Đóng kết nối
 		connection.close();
 		return true;
 		
