@@ -7,21 +7,27 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import sun.java2d.pipe.SpanShapeRenderer.Simple;
+
 public class ConvertExcelToTxt {
 
 	public static void main(String[] args) throws IOException {
-		final String excelFilePath = "C:\\DevPrograms\\git\\DataWarehouse_nhom14\\Project_DataWarehouse\\files\\monhoc\\monhoc2013.xlsx";
-		String txtFilePath = "C:\\DevPrograms\\git\\DataWarehouse_nhom14\\Project_DataWarehouse\\files\\monhoc\\monhoc2013.txt";
+		final String excelFilePath = "C:\\DevPrograms\\git\\DataWarehouse_nhom14\\Project_DataWarehouse\\files\\sinhvien\\sinhvien_chieu_nhom14.xlsx";
+		String txtFilePath = "C:\\DevPrograms\\git\\DataWarehouse_nhom14\\Project_DataWarehouse\\files\\convert\\sinhvien\\sinhvien_chieu_nhom14.txt";
 		convertExcelToTxt(excelFilePath, txtFilePath, ";");
 	}
 
@@ -81,7 +87,14 @@ public class ConvertExcelToTxt {
 						data.append(delimiter + cell.getStringCellValue());
 						break;
 					case NUMERIC:
-						data.append(delimiter + (int) cell.getNumericCellValue());
+						if(HSSFDateUtil.isCellDateFormatted(cell)) {
+							SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+							Date javaDate =  DateUtil.getJavaDate(cell.getNumericCellValue());
+							String dateFormat = format.format(javaDate) ;
+							data.append(delimiter + dateFormat);
+						}else {
+							data.append(delimiter + (int) cell.getNumericCellValue());
+						}
 						break;
 					case BOOLEAN:
 						data.append(delimiter + cell.getBooleanCellValue());
