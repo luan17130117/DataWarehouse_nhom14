@@ -44,7 +44,7 @@ STT;Mã SV;Họ lót;Tên;Ngày sinh;Mã Lớp ;Tên Lớp;ĐT liên lạc;Email
 43;1211600;Võ Nguyễn Hạnh;Uyên;16/10/1994;DH37DC002;Công nghệ sinh học;911507894;dovanc@gmail.com.vn;TP. Hồ Chí Minh;?
 44;1310021;Kon Sa Ha;Nai;20/02/1992;DH37DC002;Công nghệ sinh học;911507894;dovanc@gmail.com.vn;TP. Hồ Chí Minh;?
 45;1310896;Văn Công Tuấn;Anh;06/02/1995;DH37DC002;Công nghệ sinh học;911507894;dovanc@gmail.com.vn;Tiền Giang;?
-46;1310900;K';Brên;10/06/1993;DH37DC002;Công nghệ sinh học;911507894;dovanc@gmail.com.vn;Đồng Nai;?
+46;1310900;K;Brên;10/06/1993;DH37DC002;Công nghệ sinh học;911507894;dovanc@gmail.com.vn;Đồng Nai;?
 47;1310903;Nguyễn Thành;Công;08/10/1995;DH37DC002;Công nghệ sinh học;911507894;dovanc@gmail.com.vn;Khánh Hòa;?
 48;1310907;Nguyễn Thị Mỹ;Dung;16/07/1995;DH37DC002;Công nghệ sinh học;911507894;dovanc@gmail.com.vn;Quảng Ngãi;?
 49;1310910;Trần Đình;Đạt;10/05/1995;DH37DC002;Công nghệ sinh học;911507894;dovanc@gmail.com.vn;Khánh Hòa;?
@@ -114,7 +114,7 @@ STT;Mã SV;Họ lót;Tên;Ngày sinh;Mã Lớp ;Tên Lớp;ĐT liên lạc;Email
 113;1312657;Nguyễn Thị Thùy;Trâm;10/08/1995;DH37DC003;Công nghệ thông tin;911507894;dovanc@gmail.com.vn;Đà Nẵng;?
 114;1312658;Nguyễn;Tiến;25/07/1995;DH37DC003;Công nghệ thông tin;911507894;dovanc@gmail.com.vn;Sông Bé;?
 115;1312662;Lê;Thường;29/10/1995;DH37DC003;Công nghệ thông tin;911507894;dovanc@gmail.com.vn;Bến Tre;?
-116;1312667;K' Jơ Nơng Sang Khánh;Vinh;01/01/1995;DH37DC003;Công nghệ thông tin;911507894;dovanc@gmail.com.vn;Quảng Ngãi;?
+116;1312667;K Jơ Nơng Sang Khánh;Vinh;01/01/1995;DH37DC003;Công nghệ thông tin;911507894;dovanc@gmail.com.vn;Quảng Ngãi;?
 117;1110027;Lê Đồng;Điền;15/10/1991;DH37DC003;Công tác xã hội;911507894;dovanc@gmail.com.vn;Quảng Ngãi;?
 118;1211149;Kơ Să Ha;Brỡn;11/11/1993;DH37DC003;Công tác xã hội;911507894;dovanc@gmail.com.vn;Đồng Nai;?
 119;1211153;Đinh Văn;Dung;12/01/1993;DH37DC003;Công tác xã hội;911507894;dovanc@gmail.com.vn;TP. Hồ Chí Minh;?
@@ -122,11 +122,11 @@ STT;Mã SV;Họ lót;Tên;Ngày sinh;Mã Lớp ;Tên Lớp;ĐT liên lạc;Email
 121;1212145;Trần Anh;Tuấn;07/04/1993;DH37DC003;Công tác xã hội;911507894;dovanc@gmail.com.vn;Sông Bé;?
 122;1312118;H Thâm;Byă;20/06/1994;DH37DC003;Công tác xã hội;911507894;dovanc@gmail.com.vn;TP. Hồ Chí Minh;?
 123;1312121;Lê Hoài;Bảo;13/04/1995;DH37DC003;Công tác xã hội;911507894;dovanc@gmail.com.vn;Đà Nẵng;?
-124;1312124;Mbon K';Cam;02/09/1988;DH37DC003;Công tác xã hội;911507894;dovanc@gmail.com.vn;Hà Nội;?
+124;1312124;Mbon K;Cam;02/09/1988;DH37DC003;Công tác xã hội;911507894;dovanc@gmail.com.vn;Hà Nội;?
 125;1312129;Đinh Văn;Hiệp;07/02/1995;DH37DC003;Công tác xã hội;911507894;dovanc@gmail.com.vn;Hải Dương;?
 126;1312134;Đàm Quốc;Hội;11/11/1995;DH37DC004;Công tác xã hội;911507894;dovanc@gmail.com.vn;Nghệ An;?
 127;1312135;Cil;Jệ;22/12/1994;DH37DC004;Công tác xã hội;911507894;dovanc@gmail.com.vn;Quảng Nam;?
-128;1312143;K';Phiểu;13/12/1991;DH37DC004;Công tác xã hội;911507894;dovanc@gmail.com.vn;Quảng Ngãi;?
+128;1312143;K;Phiểu;13/12/1991;DH37DC004;Công tác xã hội;911507894;dovanc@gmail.com.vn;Quảng Ngãi;?
 129;1312146;Võ Thị Song;Thu;29/08/1995;DH37DC004;Công tác xã hội;911507894;dovanc@gmail.com.vn;Quảng Ngãi;?
 130;1313150;Lê Việt;Duy;04/05/1995;DH37DC004;Công tác xã hội;911507894;dovanc@gmail.com.vn;TP. Hồ Chí Minh;?
 131;1313156;Nguyễn Thị Mỹ;Linh;01/11/1995;DH37DC004;Công tác xã hội;911507894;dovanc@gmail.com.vn;Bà Rịa - Vũng Tàu;?

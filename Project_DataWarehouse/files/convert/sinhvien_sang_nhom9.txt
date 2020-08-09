@@ -1,0 +1,21 @@
+STT;Mã số sinh viên;Họ lót ;Tên ;Ngày Sinh;Mã lớp;Tên lớp;ĐT liên lạc;Email;Quê quán;Ghi chú
+1;17120021;Nguyễn Văn; Tấn;36358;DH17KT;Kinh Tế;356120021;17120021@st.hcmuaf.edu.vn;TP Hồ Chí Minh;?
+2;17170012;Bùi Tá;Được;36211;DH17KT;Kinh Tế;328170012;17170012@st.hcmuaf.edu.vn;Cà màu;?
+3;17140065;Đỗ Văn; Đã;36294;DH17QT;Quản Trị;357140065;17140065@st.hcmuaf.edu.vn;Bình Định;?
+4;17120045;Nguyễn Tấn; Sang;36475;DH17QT;Quản Trị;372120045;17120045@st.hcmuaf.edu.vn;Quảng Ngãi;?
+5;17130034;Phạm Hữu; Tài;36263;DH17TS;Thủy Sản;377130034;17130034@st.hcmuaf.edu.vn;Nha Trang;?
+6;17560034;Nguyễn Văn; Thuận;36326;DH17KT;Kinh Tế;345560034;17560034@st.hcmuaf.edu.vn;Bình Thuận;?
+7;17890045;Lê Văn; Đạt;36358;DH17LN;Lâm Ngiệp;317890045;17890045@st.hcmuaf.edu.vn;Quảng Ninh;?
+8;17301023;Lê Trọng;Nghĩa;36315;DH17LN;Lâm Ngiệp;357301023;17301023@st.hcmuaf.edu.vn;Huế;?
+9;17305643;Mai Linh; Đồng;36375;DH17LN;Lâm Ngiệp;2147483647;17305643@st.hcmuaf.edu.vn;Sóc Trăng;?
+10;17340232;Phạm Tấn; Sang;36423;DH17TT;Thủy Sản;2147483647;17340232@st.hcmuaf.edu.vn;Cà màu;?
+11;17340834;Nguyễn Tấn;Huệ;36179;DH17CN;Công ngiệp;357340834;17340834@st.hcmuaf.edu.vn;Đà Nẵng;?
+12;17230098;Bùi Tá; Trung;36270;DH17CN;Công ngiệp;317230098;17230098@st.hcmuaf.edu.vn;Lâm Đồng;?
+13;17240099;Trần Thị; Phượng;36316;DH17CN;Công ngiệp;347240099;17240099@st.hcmuaf.edu.vn;Hà Nội;?
+14;17000004;Trần Thị; Nga;36314;DH17KT;Kinh Tế;367000004;17000004@st.hcmuaf.edu.vn;Lạng Sơn;?
+15;17002321;Nguyễn Quốc;Đô;36270;DH17QT;Quản Trị;375002321;17002321@st.hcmuaf.edu.vn;Tiền Giang;?
+16;17450002;Đỗ Quốc; Toàn;36514;DH17TS;Thủy Sản;2147483647;17450002@st.hcmuaf.edu.vn;Vĩnh Long;?
+17;17030034;Phạm Hoàng; Phước;36488;DH17TS;Thủy Sản;2147483647;17030034@st.hcmuaf.edu.vn;Hải Phòng;?
+18;17040056;Lê Văn; Trường;36267;DH17CK;Cơ Khí;1457040056;17040056@st.hcmuaf.edu.vn;Vĩnh Long;?
+19;17050057;Nguyễn Văn; Luận;36386;DH17KT;Kinh Tế;2147483647;17050057@st.hcmuaf.edu.vn;Huế;?
+20;17060078;Trần Phương; Nam;36388;DH17KT;Kinh Tế;2147483647;17060078@st.hcmuaf.edu.vn;Đà Nẵng;?
