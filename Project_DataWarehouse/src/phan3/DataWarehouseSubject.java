@@ -13,7 +13,6 @@ public class DataWarehouseSubject {
 		new DataWarehouseSubject().insertSubjectToDW();
 	}
 
-//	public void insertSubjectToDW(String condition) {
 	public void insertSubjectToDW() {
 		// ket noi voi Control
 		Connection con_Control = null;
@@ -32,14 +31,15 @@ public class DataWarehouseSubject {
 
 			// 1. Kết nối DB control
 			con_Control = new GetConnection().getConnection("control");
-			// 2. Lấy các file monhoc có trạng thái là OK Staging tại các nhóm có đang
+			// 2. Lấy các file monhoc có trạng thái là Staging ok tại các nhóm có đang
 			// active
 			pre_control = con_Control.prepareStatement("select data_file_logs.id ,data_file_logs.id_config, "
 					+ "data_file_configuaration.data_warehouse_sql," + " data_file_configuaration.fileName"
 					+ " from data_file_logs JOIN data_file_configuaration "
 					+ "on data_file_logs.id_config=data_file_configuaration.id "
-					+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =2 and data_file_logs.status_file like 'Staging ok'");
-//				+ "AND " + condition);
+					+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =2 "
+					+ "and data_file_logs.status_file like 'Staging ok'");
+
 			// 3. Trả về Result set chứa các record thỏa điều kiện
 			ResultSet re = pre_control.executeQuery();
 			// 4. Chạy từng record trong result set ==> tung cai ten tablename trong Staging
@@ -77,8 +77,8 @@ public class DataWarehouseSubject {
 
 					// 8. Mở connection database data_warehouse
 					conn_DW1 = new GetConnection().getConnection("warehouse");
-					// 9. Truy xuất các field của subject có mã MH là mmh
-					// tại các subject đang active
+					// 9. Truy xuất các field của monhoc trong data_warehouse có mã MH là mmh
+					// tại các monhoc đang active
 					String sql_exceute = "select * from monhoc where MaMH = '" + mmh + "'";
 					pre_DW = conn_DW1.prepareStatement(sql_exceute);
 					// 10. Trả về ResultSet chứa 1 record thỏa điều kiện truy xuất
@@ -166,7 +166,7 @@ public class DataWarehouseSubject {
 
 				} // end while:1 MH trong staging
 
-				// kiem tra ERR eps kieu cho ngay thoi
+				// kiem tra ERR ep kieu cho ngay
 				if (err == true) {
 					// 12.b. Update trạng thái file là ERROR_DATE_DW và time_data_warehouse là TG
 					// hiện tại
@@ -186,7 +186,6 @@ public class DataWarehouseSubject {
 					}
 					if (count_NEW > 0) {
 						// **them du lieu vao DW
-
 						value_sql = value_sql.substring(0, value_sql.lastIndexOf(","));// cat dau phay cuoi cung
 						value_sql += ";";
 						System.out.println(value_sql);

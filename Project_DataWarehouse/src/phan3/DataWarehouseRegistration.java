@@ -17,7 +17,6 @@ public class DataWarehouseRegistration {
 		new DataWarehouseRegistration().insertRegistrationToDW();
 	}
 
-//	public void insertRegistrationToDW(String condition) {
 	public void insertRegistrationToDW() {
 		// ket noi voi Control
 		Connection con_Control = null;
@@ -35,13 +34,14 @@ public class DataWarehouseRegistration {
 		try {
 			// 1. Kết nối DB control
 			con_Control = new GetConnection().getConnection("control");
-			// 2. Lấy các file dangky có trạng thái là OK Staging tại các nhóm có đang
+			// 2. Lấy các file dangky có trạng thái là Staging ok tại các nhóm có đang
 			// active
 			pre_control = con_Control.prepareStatement("select data_file_logs.id ,data_file_logs.id_config, "
 					+ "data_file_configuaration.data_warehouse_sql," + " data_file_configuaration.fileName"
 					+ " from data_file_logs JOIN data_file_configuaration "
 					+ "on data_file_logs.id_config=data_file_configuaration.id "
-					+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =4 and data_file_logs.status_file like 'Staging ok'");
+					+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =4 "
+					+ "and data_file_logs.status_file like 'Staging ok'");
 			// 3. Trả về Result set chứa các record thỏa điều kiện
 			ResultSet re = pre_control.executeQuery();
 
@@ -89,7 +89,7 @@ public class DataWarehouseRegistration {
 						int index_lophoc = getSK_LH(conn_DW1, maLopHoc);
 						int index_sinhvien = getSK_SV(conn_DW1, mssv);
 
-						// 9. Truy xuất các field của Registation có mã đăng ký là maDK
+						// 9. Truy xuất các field của table dangky trong data_warehouse có mã đăng ký là maDK
 						String sql_exceute = "select * from dangky where MaDK = '" + maDK + "'";
 						pre_DW = conn_DW1.prepareStatement(sql_exceute);
 						// 10. Trả về ResultSet chứa 1 record thỏa điều kiện truy xuất
@@ -133,7 +133,7 @@ public class DataWarehouseRegistration {
 							// 11.2.2.3. Trong database data-warehouse Cập nhật isActive = 0, date_change là
 							// ngày giờ hiện tại
 							value_update += sk_DW + ", ";
-							// 11.2.2.4.Thêm dòng DK vào table Registration của data_warehouse
+							// 11.2.2.4.Thêm dòng DK vào table dangky của data_warehouse
 							pre_DW = conn_DW1.prepareStatement(
 									"insert into dangky (STT, MaDK, MSSV, Sk_SV, MaLopHoc, Sk_LH, TGDK, index_dangky) values "
 											+ "( '" + stt + "', '" + maDK + "','" + mssv + "','" + index_sinhvien
@@ -172,7 +172,7 @@ public class DataWarehouseRegistration {
 
 				} // end while:1 DK trong staging
 
-				// kiem tra ERR eps kieu cho ngay thoi
+				// kiem tra ERR ep kieu cho ngay
 				if (err == true) {
 					// 12.b. Update trạng thái file là ERROR_DATE_DW và time_data_warehouse là TG
 					// hiện tại
@@ -241,9 +241,7 @@ public class DataWarehouseRegistration {
 	public int getDate(Connection conn_DW, Date dob) {
 		PreparedStatement pre = null;
 		try {
-			// 11.1.1. Tìm Date_SK của ngày đăng ký trong Date_dim table
-//				pre = conn_DW.prepareStatement("select Date_SK from Date_dim where Full_date like ?");
-//				select sk_date from database_warehouse.date_dim where Full_date =  CONVERT('1999-01-01', DATE);
+			//Tim sk_date cua ngay dang ky trong bang Date_dim
 			pre = conn_DW.prepareStatement("select sk_date from date_dim where Full_date like ?");
 			pre.setDate(1, dob);
 			ResultSet re_date = pre.executeQuery();
@@ -261,6 +259,7 @@ public class DataWarehouseRegistration {
 	public int getSK_LH(Connection conn_DW, String maLH) {
 		PreparedStatement pre = null;
 		try {
+			//Tim Sk_LH cua MaLopHoc trong bang lophoc
 			pre = conn_DW.prepareStatement("select Sk_LH from lophoc where MaLopHoc like ? and isActive = 1");
 			pre.setString(1, maLH);
 			ResultSet re = pre.executeQuery();
@@ -279,6 +278,7 @@ public class DataWarehouseRegistration {
 	public int getSK_SV(Connection conn_DW, String mssv) {
 		PreparedStatement pre = null;
 		try {
+			//Tim Sk_SV cua MSSV trong bang sinhvien
 			pre = conn_DW.prepareStatement("select Sk_SV from sinhvien where MSSV like ? and isActive = 1");
 			pre.setString(1, mssv);
 			ResultSet re = pre.executeQuery();

@@ -19,7 +19,6 @@ public class DataWarehouseStudent {
 
 	}
 
-//	public void insertStudentToDW(String condition) {
 	public void insertStudentToDW() {
 		// ket noi voi Control
 		Connection con_Control = null;
@@ -38,21 +37,13 @@ public class DataWarehouseStudent {
 
 			// 1. Kết nối DB control
 			con_Control = new GetConnection().getConnection("control");
-			// 2. Lấy các file sinhvien có trạng thái là OK Staging tại các nhóm có đang active
-//			pre_control = con_Control.prepareStatement(
-//					"select data_file_logs.id ,data_file_logs.id_config, "
-//					+ "data_file_configuaration.data_warehouse_sql,"
-//							+ " data_file_configuaration.insert_DW_sql,"
-//							+ " data_file_logs.table_staging"
-//							+ " from data_file_logs JOIN data_file_configuaration "
-//							+ "on data_file_logs.id_config=data_file_configuaration.id "
-//							+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =1 "
-//							+ "AND " + condition);
+			// 2. Lấy các file sinhvien có trạng thái là Staging ok tại các nhóm có đang active
 			pre_control = con_Control.prepareStatement("select data_file_logs.id ,data_file_logs.id_config, "
 					+ "data_file_configuaration.data_warehouse_sql," + " data_file_configuaration.fileName"
 					+ " from data_file_logs JOIN data_file_configuaration "
 					+ "on data_file_logs.id_config=data_file_configuaration.id "
-					+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =1 and data_file_logs.status_file like 'Staging ok'");
+					+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =1 "
+					+ "and data_file_logs.status_file like 'Staging ok'");
 			// 3. Trả về Result set chứa các record thỏa điều kiện
 			ResultSet re = pre_control.executeQuery();
 
@@ -103,8 +94,8 @@ public class DataWarehouseStudent {
 						// 8. Mở connection database data_warehouse
 						conn_DW1 = new GetConnection().getConnection("warehouse");
 						int index_date = getDate(conn_DW1, sqlDate);
-						// 9. Truy xuất các field của sinh viên có mã SV là mssv
-						// tại các sinh viên đang active
+						// 9. Truy xuất các field của sinhvien trong data_warehouse có mã SV là mssv
+						// tại các sinhvien đang active
 						String sql_exceute = "select * from sinhvien where mssv = '" + mssv + "'";
 						pre_DW = conn_DW1.prepareStatement(sql_exceute);
 						// 10. Trả về ResultSet chứa 1 record thỏa điều kiện truy xuất
@@ -157,7 +148,7 @@ public class DataWarehouseStudent {
 						if (checkExist.equalsIgnoreCase("YES")) {
 							// *** YES: Tồn tại + có thay đổi: Nhánh 11.2.2
 
-							// 11.2.2.2. In thôn báo thay đổi thông tin SV có mã của nhóm
+							// 11.2.2.2. In thông báo thay đổi thông tin SV
 							System.out.println("==> Thay đôi TTSV mã: " + mssvTemp + ", " + hoLotTemp + " " + tenTemp
 									+ ", " + ngaySinhTemp + ", " + maLopTemp + ", " + tenLopTemp + ", " + sdtTemp + ", "
 									+ emailTemp + ", " + queQuanTemp + ", " + ghiChuTemp + " thanh " + mssv + ", "
@@ -166,7 +157,7 @@ public class DataWarehouseStudent {
 							// 11.2.2.3. Trong database data-warehouse Cập nhật isActive = 0, date_change là
 							// ngày giờ hiện tại
 							value_update += sk_DW + ", ";
-							// 11.2.2.4.Thêm dòng SV vào table Student của data_warehouse
+							// 11.2.2.4.Thêm dòng SV vào table sinhvien của data_warehouse
 							pre_DW = conn_DW1.prepareStatement(
 
 									"insert into sinhvien( STT , MSSV, HoLot, Ten, NgaySinh ,index_ngaysinh, MaLop, TenLop, SDT, Email, QueQuan, GhiChu) values "
@@ -278,7 +269,7 @@ public class DataWarehouseStudent {
 	public int getDate(Connection conn_DW, Date dob) {
 		PreparedStatement pre = null;
 		try {
-			// 11.1.1. Tìm Date_SK của ngày sinh sinh trong Date_dim table
+			// Tìm sk_date của ngày sinh sinh vien trong Date_dim table
 //			pre = conn_DW.prepareStatement("select Date_SK from Date_dim where Full_date like ?");
 //			select sk_date from database_warehouse.date_dim where Full_date =  CONVERT('1999-01-01', DATE);
 			pre = conn_DW.prepareStatement("select sk_date from date_dim where Full_date =  CONVERT(?, DATE)");

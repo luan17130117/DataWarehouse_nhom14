@@ -1,7 +1,6 @@
 package phan3;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +13,6 @@ public class DataWarehouseClass {
 		new DataWarehouseClass().insertClassToDW();
 	}
 
-//	public void insertClassToDW(String condition) {
 	public void insertClassToDW() {
 		// ket noi voi Control
 		Connection con_Control = null;
@@ -33,13 +31,13 @@ public class DataWarehouseClass {
 
 			// 1. Kết nối DB control
 			con_Control = new GetConnection().getConnection("control");
-			// 2. Lấy các file lophoc có trạng thái là OK Staging và đang active
+			// 2. Lấy các file lophoc có trạng thái là Staging ok và đang active
 			pre_control = con_Control.prepareStatement("select data_file_logs.id ,data_file_logs.id_config, "
 					+ "data_file_configuaration.data_warehouse_sql," + " data_file_configuaration.fileName"
 					+ " from data_file_logs JOIN data_file_configuaration "
 					+ "on data_file_logs.id_config=data_file_configuaration.id "
-					+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =3 and data_file_logs.status_file like 'Staging ok'");
-//					+ "AND " + condition);
+					+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =3 "
+					+ "and data_file_logs.status_file like 'Staging ok'");
 			// 3. Trả về Result set chứa các record thỏa điều kiện
 			ResultSet re = pre_control.executeQuery();
 			// 4. Chạy từng record trong result set ==> tung cai ten tablename trong Staging
@@ -79,8 +77,8 @@ public class DataWarehouseClass {
 //					int maMH = Integer.parseInt(mmh); 
 					int index_monhoc = getSK_MH(conn_DW1, mmh);
 
-					// 9. Truy xuất các field của class có mã lớp là maLop
-					// tại các class đang active
+					// 9. Truy xuất các field của lophoc trong data_warehouse có mã lớp là maLop
+					// tại các lophoc đang active
 					String sql_exceute = "select * from lophoc where MaLopHoc = '" + maLop + "'";
 					pre_DW = conn_DW1.prepareStatement(sql_exceute);
 					// 10. Trả về ResultSet chứa 1 record thỏa điều kiện truy xuất
@@ -124,7 +122,7 @@ public class DataWarehouseClass {
 						// 11.2.2.3. Trong database data-warehouse Cập nhật isActive = 0, date_change là
 						// ngày giờ hiện tại
 						value_update += sk_DW + ", ";
-						// 11.2.2.4.Thêm dòng LH vào table class của data_warehouse
+						// 11.2.2.4.Thêm dòng LH vào table lophoc của data_warehouse
 						pre_DW = conn_DW1.prepareStatement(
 								"insert into lophoc (STT, MaLopHoc, MaMH, Sk_MH, NamHoc) values " + "( '" + stt + "', '"
 										+ maLop + "','" + mmh + "','" + index_monhoc + "','" + namHoc + "')");
@@ -156,7 +154,7 @@ public class DataWarehouseClass {
 
 				} // end while:1 MH trong staging
 
-				// kiem tra ERR eps kieu cho ngay thoi
+				// kiem tra ERR ep kieu cho ngay
 				if (err == true) {
 					// 12.b. Update trạng thái file là ERROR_DATE_DW và time_data_warehouse là TG
 					// hiện tại
@@ -176,7 +174,6 @@ public class DataWarehouseClass {
 					}
 					if (count_NEW > 0) {
 						// **them du lieu vao DW
-
 						value_sql = value_sql.substring(0, value_sql.lastIndexOf(","));// cat dau phay cuoi cung
 						value_sql += ";";
 						System.out.println(value_sql);
@@ -220,9 +217,11 @@ public class DataWarehouseClass {
 		}
 	}
 
+	
 	public int getSK_MH(Connection conn_DW, String maMH) {
 		PreparedStatement pre = null;
 		try {
+			//tim Sk_MH cua MaMH trong bang monhoc
 			pre = conn_DW.prepareStatement("select Sk_MH from monhoc where MaMH like ? and isActive = 1");
 			pre.setString(1, maMH);
 			ResultSet re = pre.executeQuery();

@@ -17,7 +17,7 @@ import connection.database.GetConnection;
 // Load Date_Dim vào Warehouse
 public class Date_Dim {
 	// Tạo số lượng record
-	public static final int NUMBER_OF_RECORD = 1000;
+	public static final int NUMBER_OF_RECORD = 10000;
 	
 	//
 	public static void main(String[] args) throws SQLException {
