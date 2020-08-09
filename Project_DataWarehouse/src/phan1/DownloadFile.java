@@ -44,7 +44,8 @@ public class DownloadFile {
 		String passWord = rs.getString("passWord");
 		String srcPath = rs.getString("remotePath");
 		String localPath = rs.getString("localPath");
-
+		
+		//
 		System.out.println(id + "-" + fileName);
 
 		// 5. Kết nối đến Server Cource
@@ -74,7 +75,7 @@ public class DownloadFile {
 			System.out.println(scp.lastErrorText());
 			return;
 		}
-		// 6. Gọi hàm DownloadFile để tải file
+		// 6. Gọi hàm Download để tải file
 		// Tải tất cả file bắt đầu tên fileName
 		scp.put_SyncMustMatch(fileName + "*.*");
 		// Tạo folder tên fileName
@@ -121,8 +122,11 @@ public class DownloadFile {
 		Connection connection = new GetConnection().getConnection("control_db");
 		for (int i = 0; i < listFile.size(); i++) {
 			File f = listFile.get(i);
+			if(checkLog(f.getName())) {
 			// 9.1 Nếu file tải thành công
 			if (f.length() > 0) {
+				// Kiểm tra tên file đã tồn tại trong table log chưa
+//				if(checkLog(f.getName())) {
 				// 9.1.1 Ghi lai log
 				String log = "Insert into data_file_logs(id_config, your_fileName, table_staging, status_file, time_download) values ('"
 						+ id + "','" + f.getName() + "','" + fileName + "','Download ok',NOW()) ";
@@ -130,26 +134,48 @@ public class DownloadFile {
 				pslog.executeUpdate(log);
 				// 9.1.2 In thông báo ra màn hình
 				System.out.println((i + 1) + ": " + f.getName() + ": " + "Đã ghi vào table_log...");
+
 			}
 			// 9.2 Nếu file tải bị lỗi
 			else {
 				// 9.2.1 In thông báo lỗi ra màn hình
 				System.out.println((i + 1) + ": " + f.getName() + ": " + " Bị lỗi...");
 				// 9.2.2 Gửi mail thông báo lỗi
-				SendMail.sendMail("test@st.hcmuaf.edu.vn", "Warehouse", (i + 1) + " " + f.getName() + ": Bị lỗi");
+//				SendMail.sendMail("test@st.hcmuaf.edu.vn", "Warehouse", (i + 1) + " " + f.getName() + ": Bị lỗi");
 				// 9.2.3 Ghi lại log file bị lỗi
-				String log = "Insert into data_file_logs(id_config,your_fileName, status_file, time_download) values ('"
-						+ id + "','" + f.getName() + "','Download ERROR',NOW()) ";
+				String log = "Insert into data_file_logs(id_config,your_fileName, table_staging, status_file, time_download) values ('"
+						+ id + "','" + f.getName()+ "','" + fileName  + "','Download error',NOW()) ";
 				PreparedStatement pslog = connection.prepareStatement(log);
 				pslog.executeUpdate(log);
 			}
 		}
+		}
 		connection.close();
+	}
+	public boolean checkLog(String fileName) throws SQLException {
+		System.out.println("File Name: "+ fileName);
+		Connection connection = new GetConnection().getConnection("control_db");
+		String sql = "SELECT your_filename FROM data_file_logs";
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+		String fileNameLog = rs.getString("your_filename");
+		System.out.println("fileName_Log: "+fileNameLog);
+		if(fileName.equals(fileNameLog)) {
+			return false;
+		}
+		}
+		connection.close();
+		return true;
+		
 	}
 
 	public static void main(String argv[]) throws ClassNotFoundException, SQLException {
-		int n = 1;
+//		int n = 1;
 		DownloadFile load = new DownloadFile();
-		load.DownloadFie(n);
+//		load.DownloadFie(n);
+		List<File> listFile =load.listFile("D:\\Github\\DataWarehouse_nhom14\\Project_DataWarehouse\\files\\monhoc");
+		load.checkFile("2", listFile, "monhoc");
+		
 	}
 }
