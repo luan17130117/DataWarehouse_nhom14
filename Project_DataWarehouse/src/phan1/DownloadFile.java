@@ -125,20 +125,19 @@ public class DownloadFile {
 		Connection connection = new GetConnection().getConnection("control_db");
 		for (int i = 0; i < listFile.size(); i++) {
 			File f = listFile.get(i);
-			
+			// Kiểm tra tên file đã tồn tại trong table log chưa
+			if(checkLog(f.getName())) {
 			// 9.1 Nếu file tải thành công
 			if (f.length() > 0) {
-				// Kiểm tra tên file đã tồn tại trong table log chưa
-				if(checkLog(f.getName())) {
 				// 9.1.1 Ghi lai log
-				String log = "Insert into data_file_logs(id_config, your_fileName, table_staging, status_file, time_download) values ('"
-						+ id + "','" + f.getName() + "','" + fileName + "','Download ok',NOW()) ";
+				String log = "Insert into data_file_logs(id_config, your_fileName, status_file, time_download) values ('"
+						+ id + "','" + f.getName() + "','Download ok',NOW()) ";
 				PreparedStatement pslog = connection.prepareStatement(log);
 				pslog.executeUpdate(log);
 				// 9.1.2 In thông báo ra màn hình
 				System.out.println((i + 1) + ": " + f.getName() + ": " + "Đã ghi vào table_log...");
 			}
-			}
+			
 			// 9.2 Nếu file tải bị lỗi
 			else {
 				// 9.2.1 In thông báo lỗi ra màn hình
@@ -146,12 +145,12 @@ public class DownloadFile {
 				// 9.2.2 Gửi mail thông báo lỗi
 				SendMail.sendMail("17130117@st.hcmuaf.edu.vn", "Warehouse", (i + 1) + " " + f.getName() + ": Bị lỗi");
 				// 9.2.3 Ghi lại log file bị lỗi
-				String log = "Insert into data_file_logs(id_config,your_fileName, table_staging, status_file, time_download) values ('"
-						+ id + "','" + f.getName()+ "','" + fileName  + "','Download error',NOW()) ";
+				String log = "Insert into data_file_logs(id_config,your_fileName, status_file, time_download) values ('"
+						+ id + "','" + f.getName()+ "', 'Download error',NOW()) ";
 				PreparedStatement pslog = connection.prepareStatement(log);
 				pslog.executeUpdate(log);
 			}
-
+		}
 		}
 		connection.close();
 	}
@@ -175,11 +174,11 @@ public class DownloadFile {
 	}
 
 	public static void main(String argv[]) throws ClassNotFoundException, SQLException {
-		int n = 1;
+//		int n = 1;
 		DownloadFile load = new DownloadFile();
-		load.DownloadFie(n);
-//		List<File> listFile =load.listFile("D:\\Github\\DataWarehouse_nhom14\\Project_DataWarehouse\\files\\monhoc");
-//		load.checkFile("2", listFile, "monhoc");
+//		load.DownloadFie(n);
+		List<File> listFile =load.listFile("C:\\DevPrograms\\git\\DataWarehouse_nhom14\\Project_DataWarehouse\\files\\monhoc");
+		load.checkFile("2", listFile, "monhoc");
 		
 	}
 }
