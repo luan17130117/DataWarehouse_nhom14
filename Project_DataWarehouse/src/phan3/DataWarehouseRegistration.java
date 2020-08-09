@@ -14,7 +14,6 @@ import connection.database.GetConnection;
 //Chuyen Staging vao Data_Warehouse
 public class DataWarehouseRegistration {
 	public static void main(String[] args) {
-//		new DataWarehouseRegistration().insertRegistrationToDW("data_file_logs.status_file like 'Ok Staging'");
 		new DataWarehouseRegistration().insertRegistrationToDW();
 	}
 
@@ -39,10 +38,10 @@ public class DataWarehouseRegistration {
 			// 2. Lấy các file dangky có trạng thái là OK Staging tại các nhóm có đang
 			// active
 			pre_control = con_Control.prepareStatement("select data_file_logs.id ,data_file_logs.id_config, "
-					+ "data_file_configuaration.data_warehouse_sql," + " data_file_logs.table_staging"
+					+ "data_file_configuaration.data_warehouse_sql," + " data_file_configuaration.fileName"
 					+ " from data_file_logs JOIN data_file_configuaration "
 					+ "on data_file_logs.id_config=data_file_configuaration.id "
-					+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =4");
+					+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =4 and data_file_logs.status_file like 'Staging ok'");
 			// 3. Trả về Result set chứa các record thỏa điều kiện
 			ResultSet re = pre_control.executeQuery();
 
@@ -55,7 +54,7 @@ public class DataWarehouseRegistration {
 				int id_file = re.getInt("id"); // ma file
 				// data_warehouse_sql:STT, MaDK, MSSV, MaLopHoc, TGDK
 				String sql = re.getString("data_warehouse_sql");// select ***
-				String table_src = re.getString("table_staging");// from + table staging
+				String table_src = re.getString("fileName");// from + table staging
 				// 5. Mở connection của database Staging
 				conn_staging = new GetConnection().getConnection("staging");
 				// 6. Lấy STT, MaDK, MSSV, MaLopHoc, TGDK trong table của database Staging
@@ -88,14 +87,14 @@ public class DataWarehouseRegistration {
 						conn_DW1 = new GetConnection().getConnection("warehouse");
 						int index_dk = getDate(conn_DW1, sqlDate);
 						int index_lophoc = getSK_LH(conn_DW1, maLopHoc);
-						int index_sinhvien= getSK_SV(conn_DW1, mssv);
-						
+						int index_sinhvien = getSK_SV(conn_DW1, mssv);
+
 						// 9. Truy xuất các field của Registation có mã đăng ký là maDK
-						String sql_exceute = "select * from registration where MaDK = '" + maDK + "'";
+						String sql_exceute = "select * from dangky where MaDK = '" + maDK + "'";
 						pre_DW = conn_DW1.prepareStatement(sql_exceute);
 						// 10. Trả về ResultSet chứa 1 record thỏa điều kiện truy xuất
 						ResultSet re_DW = pre_DW.executeQuery();
-						
+
 						int sk_DW = 0;
 						String checkExist = "NO";
 
@@ -128,17 +127,18 @@ public class DataWarehouseRegistration {
 							// *** YES: Tồn tại + có thay đổi: Nhánh 11.2.2
 
 							// 11.2.2.2. In thông báo thay đổi thông tin DK
-							System.out.println(
-									"==> Thay đôi TTDK mã: " + maDKTemp + ", mssv " + mssvTemp + ", ma lop hoc " + maLopHocTemp + ", tgdk "
-											+ tgdkTemp + " thanh " + maDK + ", mssv " + mssv + ", ma lop hoc " + maLopHoc + ", tgdk " + tgdk);
+							System.out.println("==> Thay đôi TTDK mã: " + maDKTemp + ", mssv " + mssvTemp
+									+ ", ma lop hoc " + maLopHocTemp + ", tgdk " + tgdkTemp + " thanh " + maDK
+									+ ", mssv " + mssv + ", ma lop hoc " + maLopHoc + ", tgdk " + tgdk);
 							// 11.2.2.3. Trong database data-warehouse Cập nhật isActive = 0, date_change là
 							// ngày giờ hiện tại
 							value_update += sk_DW + ", ";
 							// 11.2.2.4.Thêm dòng DK vào table Registration của data_warehouse
 							pre_DW = conn_DW1.prepareStatement(
-									"insert into registration(STT, MaDK, MSSV, Sk_SV, MaLopHoc, Sk_LH, TGDK, index_dangky) values "
-											+ "( '" + stt + "', '" + maDK + "','" + mssv + "','" + index_sinhvien + "','" 
-											+ maLopHoc + "', '" + index_lophoc + "', '" + tgdk + "', '" + index_dk + "')");
+									"insert into dangky (STT, MaDK, MSSV, Sk_SV, MaLopHoc, Sk_LH, TGDK, index_dangky) values "
+											+ "( '" + stt + "', '" + maDK + "','" + mssv + "','" + index_sinhvien
+											+ "','" + maLopHoc + "', '" + index_lophoc + "', '" + tgdk + "', '"
+											+ index_dk + "')");
 							//
 							pre_DW.executeUpdate();
 
@@ -149,11 +149,11 @@ public class DataWarehouseRegistration {
 							// **** NO: them moi hoan toan: Nhanh 11.1
 
 							// 11.1.1. In thông bao thêm DK
-							System.out.println("==> them moi DK: stt " + stt + ", ma dang ky " + maDK + ", mssv " + mssv + ", ma lop hoc " 
-							+ maLopHoc+ ", ma dang ky " + sqlDate + ", ");
+							System.out.println("==> them moi DK: stt " + stt + ", ma dang ky " + maDK + ", mssv " + mssv
+									+ ", ma lop hoc " + maLopHoc + ", ma dang ky " + sqlDate + ", ");
 							// 11.1.2. Thêm thông tin DK chuỗi value_insert
-							value_sql += "( '" + stt + "', '" + maDK + "','" + mssv + "','" + index_sinhvien + "','" 
-							+ maLopHoc + "', '" + index_lophoc + "', '" + tgdk + "', '" + index_dk + "'),";
+							value_sql += "( '" + stt + "', '" + maDK + "','" + mssv + "','" + index_sinhvien + "','"
+									+ maLopHoc + "', '" + index_lophoc + "', '" + tgdk + "', '" + index_dk + "'),";
 							// 11.1..3. tăng số dòng thêm mới lên
 							count_NEW++;
 
@@ -186,7 +186,7 @@ public class DataWarehouseRegistration {
 					if (count_UPDATE > 0) {
 						value_update = value_update.substring(0, value_update.lastIndexOf(","));// cat dau , cuoi cung
 						pre_DW = conn_DW1.prepareStatement(
-								"update registration set isActive = 0 where Sk_DK IN ( " + value_update + ");");
+								"update dangky set isActive = 0 where Sk_DK IN ( " + value_update + ");");
 						int update = pre_DW.executeUpdate();
 						System.out.println("so dong da update: " + update);
 					}
@@ -197,7 +197,7 @@ public class DataWarehouseRegistration {
 						value_sql += ";";
 						System.out.println(value_sql);
 						pre_DW = conn_DW1.prepareStatement(
-								"insert into registration (STT, MaDK, MSSV, Sk_SV, MaLopHoc, Sk_LH, TGDK, index_dangky) values "
+								"insert into dangky (STT, MaDK, MSSV, Sk_SV, MaLopHoc, Sk_LH, TGDK, index_dangky) values "
 										+ value_sql);
 						int i = pre_DW.executeUpdate();
 						System.out.println("So dong insert vao: " + i);
@@ -261,7 +261,7 @@ public class DataWarehouseRegistration {
 	public int getSK_LH(Connection conn_DW, String maLH) {
 		PreparedStatement pre = null;
 		try {
-			pre = conn_DW.prepareStatement("select Sk_LH from class where MaLopHoc like ? and isActive = 1");
+			pre = conn_DW.prepareStatement("select Sk_LH from lophoc where MaLopHoc like ? and isActive = 1");
 			pre.setString(1, maLH);
 			ResultSet re = pre.executeQuery();
 			int sk_LH = 0;
@@ -279,7 +279,7 @@ public class DataWarehouseRegistration {
 	public int getSK_SV(Connection conn_DW, String mssv) {
 		PreparedStatement pre = null;
 		try {
-			pre = conn_DW.prepareStatement("select Sk_SV from student where MSSV like ? and isActive = 1");
+			pre = conn_DW.prepareStatement("select Sk_SV from sinhvien where MSSV like ? and isActive = 1");
 			pre.setString(1, mssv);
 			ResultSet re = pre.executeQuery();
 			int sk_SV = 0;

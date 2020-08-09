@@ -10,7 +10,6 @@ import connection.database.GetConnection;
 //Chuyen Staging vao Data_Warehouse
 public class DataWarehouseSubject {
 	public static void main(String[] args) {
-//		new DataWarehouseSubject().insertSubjectToDW("data_file_logs.status_file like 'Ok Staging'");
 		new DataWarehouseSubject().insertSubjectToDW();
 	}
 
@@ -36,10 +35,10 @@ public class DataWarehouseSubject {
 			// 2. Lấy các file monhoc có trạng thái là OK Staging tại các nhóm có đang
 			// active
 			pre_control = con_Control.prepareStatement("select data_file_logs.id ,data_file_logs.id_config, "
-					+ "data_file_configuaration.data_warehouse_sql," + " data_file_logs.table_staging"
+					+ "data_file_configuaration.data_warehouse_sql," + " data_file_configuaration.fileName"
 					+ " from data_file_logs JOIN data_file_configuaration "
 					+ "on data_file_logs.id_config=data_file_configuaration.id "
-					+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =2");
+					+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =2 and data_file_logs.status_file like 'Staging ok'");
 //				+ "AND " + condition);
 			// 3. Trả về Result set chứa các record thỏa điều kiện
 			ResultSet re = pre_control.executeQuery();
@@ -52,7 +51,7 @@ public class DataWarehouseSubject {
 				int id_file = re.getInt("id"); // ma file
 				// data_warehouse_sql:STT, MaMH, TenMonHoc, TC, KhoaQuanLy, KhoaSuDung
 				String sql = re.getString("data_warehouse_sql");// select ***
-				String table_src = re.getString("table_staging");// from + table staging
+				String table_src = re.getString("fileName");// from + table staging
 				// 5. Mở connection của database Staging
 				conn_staging = new GetConnection().getConnection("staging");
 				// 6. Lấy STT, MaMH, TenMonHoc, TC, KhoaQuanLy, KhoaSuDung
@@ -80,7 +79,7 @@ public class DataWarehouseSubject {
 					conn_DW1 = new GetConnection().getConnection("warehouse");
 					// 9. Truy xuất các field của subject có mã MH là mmh
 					// tại các subject đang active
-					String sql_exceute = "select * from subject where MaMH = '" + mmh + "'";
+					String sql_exceute = "select * from monhoc where MaMH = '" + mmh + "'";
 					pre_DW = conn_DW1.prepareStatement(sql_exceute);
 					// 10. Trả về ResultSet chứa 1 record thỏa điều kiện truy xuất
 					ResultSet re_DW = pre_DW.executeQuery();
@@ -125,15 +124,16 @@ public class DataWarehouseSubject {
 						// *** YES: Tồn tại + có thay đổi: Nhánh 11.2.2
 
 						// 11.2.2.2. In thông báo thay đổi thông tin MH
-						System.out.println("==> Thay đôi TTMH mã: " + mmhTemp + ", ten mon hoc " + tenMonHocTemp + ", tc " + tcTemp
-								+ ", khoa quan ly " + khoaQuanLyTemp + ", khoa sd " + khoaSDTemp + " thanh " + mmh 
-								+ ", ten mon hoc " + tenMonHoc +", tc " + tc + ", khoa quan ly "+ khoaQuanLyTemp + ", khoa sd " + khoaSD);
+						System.out.println("==> Thay đôi TTMH mã: " + mmhTemp + ", ten mon hoc " + tenMonHocTemp
+								+ ", tc " + tcTemp + ", khoa quan ly " + khoaQuanLyTemp + ", khoa sd " + khoaSDTemp
+								+ " thanh " + mmh + ", ten mon hoc " + tenMonHoc + ", tc " + tc + ", khoa quan ly "
+								+ khoaQuanLyTemp + ", khoa sd " + khoaSD);
 						// 11.2.2.3. Trong database data-warehouse Cập nhật isActive = 0, date_change là
 						// ngày giờ hiện tại
 						value_update += sk_DW + ", ";
 						// 11.2.2.4.Thêm dòng MH vào table subject của data_warehouse
 						pre_DW = conn_DW1.prepareStatement(
-								"insert into subject( STT, MaMH, TenMonHoc, TC, KhoaQuanLy, KhoaSuDung) values " + "( '"
+								"insert into monhoc ( STT, MaMH, TenMonHoc, TC, KhoaQuanLy, KhoaSuDung) values " + "( '"
 										+ stt + "', '" + mmh + "', N'" + tenMonHoc + "','" + tc + "',N'" + khoaQuanLy
 										+ "',N'" + khoaSD + "')");
 
@@ -147,8 +147,8 @@ public class DataWarehouseSubject {
 						// **** NO: them moi hoan toan: Nhanh 11.1
 
 						// 11.1.1. In thông bao thêm MH
-						System.out.println("==> them moi MH: stt" + stt + ", ma mon " + mmh + ", ten hoc " + tenMonHoc + ", tc " + tc 
-								+ ", khoa quan ly "+ khoaQuanLy + ", khoa sd " + khoaSD + ", ");
+						System.out.println("==> them moi MH: stt" + stt + ", ma mon " + mmh + ", ten hoc " + tenMonHoc
+								+ ", tc " + tc + ", khoa quan ly " + khoaQuanLy + ", khoa sd " + khoaSD + ", ");
 
 						// 11.1.2. Thêm thông tin MH chuỗi value_insert
 						value_sql += "( '" + stt + "', '" + mmh + "', N'" + tenMonHoc + "','" + tc + "', N'"
@@ -180,7 +180,7 @@ public class DataWarehouseSubject {
 					if (count_UPDATE > 0) {
 						value_update = value_update.substring(0, value_update.lastIndexOf(","));// cat dau , cuoi cung
 						pre_DW = conn_DW1.prepareStatement(
-								"update subject set isActive = 0 where Sk_MH IN ( " + value_update + ");");
+								"update monhoc set isActive = 0 where Sk_MH IN ( " + value_update + ");");
 						int update = pre_DW.executeUpdate();
 						System.out.println("so dong da update: " + update);
 					}
@@ -191,7 +191,7 @@ public class DataWarehouseSubject {
 						value_sql += ";";
 						System.out.println(value_sql);
 						pre_DW = conn_DW1.prepareStatement(
-								"insert into subject(STT, MaMH, TenMonHoc, TC, KhoaQuanLy, KhoaSuDung) values "
+								"insert into monhoc (STT, MaMH, TenMonHoc, TC, KhoaQuanLy, KhoaSuDung) values "
 										+ value_sql);
 						int i = pre_DW.executeUpdate();
 						System.out.println("So dong insert vao: " + i);
