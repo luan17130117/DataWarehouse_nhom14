@@ -26,12 +26,10 @@ public class Staging {
 		// 6. Duyệt danh sách các file
 //		try {
 		for (int i = 0; i < lst.size(); i++) {
-			String table_staging = lst.get(i).get("table_staging");
-			String fieldName = lst.get(i).get("fieldName");
-			String table_warehouse = lst.get(i).get("table_warehouse");
+			String fileName = lst.get(i).get("fileName");
 			String fileNamei = lst.get(i).get("yourFileName");
 			String fileNameo = fileNamei.substring(0, fileNamei.lastIndexOf(".")) + ".txt";
-			String path = lst.get(i).get("dir") + File.separator + lst.get(i).get("fileName") + File.separator
+			String path = lst.get(i).get("dir") + File.separator + fileName + File.separator
 					+ fileNamei;
 			String pathConvert = lst.get(i).get("dir") + File.separator + "convert" + File.separator + fileNameo;
 			File file = null;
@@ -66,7 +64,7 @@ public class Staging {
 				updateStatusToDataFileLogs(Integer.parseInt(lst.get(i).get("id")), "ERROR at Staging", -1, "");
 			} else {
 				// 8.2. Đọc file sinh viên và lưu vào một chuỗi string dưới dạng values là sql
-				String sql = "INSERT INTO " + table_staging + " VALUES" + loadStudentFromFile(file, lst.get(i));
+				String sql = "INSERT INTO " + fileName + " VALUES" + loadStudentFromFile(file, lst.get(i));
 				// 9. Tiến hành load tất cả sinh viên vào DB staging từ câu sql và trả về số
 				// dòng đã được load thành công
 				int count = addStudentOnTable(sql);
@@ -111,8 +109,8 @@ public class Staging {
 			conn = new GetConnection().getConnection("control");
 			// 2. Tìm tất cả các file có trạng thái OK download và ở các nhóm đang active
 			pre_control = conn.prepareStatement(
-					"SELECT data_file_logs.id ,id_config, your_filename, table_staging, table_warehouse, "
-							+ " data_file_configuaration.delimiter, localPath, fileName, number_column, fieldName "
+					"SELECT data_file_logs.id ,id_config, your_filename, "
+							+ " delimiter, localPath, fileName, number_column "
 							+ "from data_file_logs JOIN data_file_configuaration "
 							+ "ON data_file_logs.id_config = data_file_configuaration.id" + " where "
 							+ "data_file_logs.status_file like 'Download ok' AND data_file_configuaration.isActive=1 ");
@@ -123,13 +121,10 @@ public class Staging {
 				HashMap<String, String> hm = new HashMap<String, String>();
 				hm.put("id", Integer.toString(re.getInt("id")));
 				hm.put("fileName", re.getString("fileName"));
-				hm.put("table_staging", re.getString("table_staging"));
 				hm.put("dir", re.getString("localPath"));
 				hm.put("yourFileName", re.getString("your_filename"));
 				hm.put("delimiter", re.getString("delimiter"));
 				hm.put("number_column", Integer.toString(re.getInt("number_column")));
-				hm.put("fieldName", re.getString("fieldName"));
-				hm.put("table_warehouse", re.getString("table_warehouse"));
 				lst.add(hm);
 				System.out.println(hm);
 			}
@@ -218,7 +213,7 @@ public class Staging {
 					+ "', data_file_logs.time_staging=NOW() WHERE id=" + id;
 		} else {
 			sql = "UPDATE data_file_logs SET staging_load_count=" + count + ", status_file='" + status
-					+ "', data_file_logs.time_staging=NOW(), table_warehouse= 'wh_" + fileName + "' WHERE id=" + id;
+					+ "', data_file_logs.time_staging=NOW() WHERE id=" + id;
 		} // sua GETDATE() = now() neu dung mySQL
 		try {
 			conn = new GetConnection().getConnection("control");

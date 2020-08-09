@@ -15,7 +15,6 @@ import connection.database.GetConnection;
 public class DataWarehouseStudent {
 
 	public static void main(String[] args) {
-//		new DataWarehouseStudent.insertStudentToDW("data_file_logs.status_file like 'Ok Staging'");
 		new DataWarehouseStudent().insertStudentToDW();
 
 	}
@@ -50,10 +49,10 @@ public class DataWarehouseStudent {
 //							+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =1 "
 //							+ "AND " + condition);
 			pre_control = con_Control.prepareStatement("select data_file_logs.id ,data_file_logs.id_config, "
-					+ "data_file_configuaration.data_warehouse_sql," + " data_file_logs.table_staging"
+					+ "data_file_configuaration.data_warehouse_sql," + " data_file_configuaration.fileName"
 					+ " from data_file_logs JOIN data_file_configuaration "
 					+ "on data_file_logs.id_config=data_file_configuaration.id "
-					+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =1");
+					+ "where data_file_configuaration.isActive=1 and data_file_configuaration.id =1 and data_file_logs.status_file like 'Staging ok'");
 			// 3. Trả về Result set chứa các record thỏa điều kiện
 			ResultSet re = pre_control.executeQuery();
 
@@ -66,7 +65,7 @@ public class DataWarehouseStudent {
 				int id_file = re.getInt("id"); // ma file
 				// data_warehouse_sql: STT, MSSV,  HoLot, Ten,  NgaySinh,  MaLop, TenLop, SDT, Email, QueQuan, GhiChu
 				String sql = re.getString("data_warehouse_sql");// select ***
-				String table_src = re.getString("table_staging");// from + table staging
+				String table_src = re.getString("fileName");// from + table staging
 				// 5. Mở connection của database Staging
 				conn_staging = new GetConnection().getConnection("staging");
 				// 6. Lấy STT, MSSV,  HoLot, Ten,  NgaySinh,  MaLop, TenLop, SDT, Email, QueQuan, GhiChu
@@ -106,7 +105,7 @@ public class DataWarehouseStudent {
 						int index_date = getDate(conn_DW1, sqlDate);
 						// 9. Truy xuất các field của sinh viên có mã SV là mssv
 						// tại các sinh viên đang active
-						String sql_exceute = "select * from student where mssv = '" + mssv + "'";
+						String sql_exceute = "select * from sinhvien where mssv = '" + mssv + "'";
 						pre_DW = conn_DW1.prepareStatement(sql_exceute);
 						// 10. Trả về ResultSet chứa 1 record thỏa điều kiện truy xuất
 						ResultSet re_DW = pre_DW.executeQuery();
@@ -170,7 +169,7 @@ public class DataWarehouseStudent {
 							// 11.2.2.4.Thêm dòng SV vào table Student của data_warehouse
 							pre_DW = conn_DW1.prepareStatement(
 
-									"insert into student( STT , MSSV, HoLot, Ten, NgaySinh ,index_ngaysinh, MaLop, TenLop, SDT, Email, QueQuan, GhiChu) values "
+									"insert into sinhvien( STT , MSSV, HoLot, Ten, NgaySinh ,index_ngaysinh, MaLop, TenLop, SDT, Email, QueQuan, GhiChu) values "
 											+ "( '" + stt + "', '" + mssv + "', N'" + hoLot + "', N'" + ten + "', '"
 											+ ngaySinh + "', '" + index_date + "', '" + maLop + "', '" + tenLop + "', '"
 											+ sdt + "', '" + email + "', '" + queQuan + "', '" + ghiChu + "')");
@@ -224,7 +223,7 @@ public class DataWarehouseStudent {
 					if (count_UPDATE > 0) {
 						value_update = value_update.substring(0, value_update.lastIndexOf(","));// cat dau , cuoi cung
 						pre_DW = conn_DW1.prepareStatement(
-								"update student set isActive = 0 where Sk_SV IN ( " + value_update + ");");
+								"update sinhvien set isActive = 0 where Sk_SV IN ( " + value_update + ");");
 						int update = pre_DW.executeUpdate();
 						System.out.println("so dong da update: " + update);
 					}
@@ -235,7 +234,7 @@ public class DataWarehouseStudent {
 						value_sql += ";";
 						System.out.println(value_sql);
 						pre_DW = conn_DW1.prepareStatement(
-								"insert into student(STT, MSSV, HoLot, Ten, NgaySinh ,index_ngaysinh, MaLop, TenLop, SDT, Email, QueQuan, GhiChu) values "
+								"insert into sinhvien (STT, MSSV, HoLot, Ten, NgaySinh ,index_ngaysinh, MaLop, TenLop, SDT, Email, QueQuan, GhiChu) values "
 										+ value_sql);
 						int i = pre_DW.executeUpdate();
 						System.out.println("So dong insert vao: " + i);
