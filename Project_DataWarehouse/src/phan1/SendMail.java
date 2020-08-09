@@ -21,13 +21,13 @@ public class SendMail {
                 new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("trantrungthao@gmail.com", "12345678");
+                return new PasswordAuthentication("trungthaoweb@gmail.com", "123456789adf");
             }
         });
         try {
             Message message = new MimeMessage(session);
             message.setHeader("Content-Type", "text/plain; charset=UTF-8");
-            message.setFrom(new InternetAddress("trantrungthao@gmail.com"));
+            message.setFrom(new InternetAddress("trungthaoweb@gmail.com"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject(subject);
             message.setText(text);
@@ -42,7 +42,7 @@ public class SendMail {
 	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
 		SendMail mail = new SendMail();
-		mail.sendMail("17130218@st.hcmuaf.edu.vn", "Data Warehouse", "file error");
+		mail.sendMail("17130117@st.hcmuaf.edu.vn", "Data Warehouse", "DownloadFile: Kết nối đến server source bị lỗi");
 		
 		
 	}
