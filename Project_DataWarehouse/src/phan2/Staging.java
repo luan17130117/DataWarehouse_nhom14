@@ -29,9 +29,9 @@ public class Staging {
 			String fileName = lst.get(i).get("fileName");
 			String fileNamei = lst.get(i).get("yourFileName");
 			String fileNameo = fileNamei.substring(0, fileNamei.lastIndexOf(".")) + ".txt";
-			String path = lst.get(i).get("dir") + File.separator + fileName + File.separator
-					+ fileNamei;
-			String pathConvert = lst.get(i).get("dir") + File.separator + "convert" + File.separator + fileNameo;
+			String path = lst.get(i).get("dir") + File.separator + fileName + File.separator + fileNamei;
+			String pathConvert = lst.get(i).get("dir") + File.separator + "convert" + File.separator + fileName
+					+ File.separator + fileNameo;
 			File file = null;
 			////
 			if (fileNamei.substring(fileNamei.lastIndexOf(".")).equalsIgnoreCase(".xlsx")
@@ -108,12 +108,11 @@ public class Staging {
 			// 1. Kết nối tới DB control
 			conn = new GetConnection().getConnection("control");
 			// 2. Tìm tất cả các file có trạng thái OK download và ở các nhóm đang active
-			pre_control = conn.prepareStatement(
-					"SELECT data_file_logs.id ,id_config, your_filename, "
-							+ " delimiter, localPath, fileName, number_column "
-							+ "from data_file_logs JOIN data_file_configuaration "
-							+ "ON data_file_logs.id_config = data_file_configuaration.id" + " where "
-							+ "data_file_logs.status_file like 'Download ok' AND data_file_configuaration.isActive=1 ");
+			pre_control = conn.prepareStatement("SELECT data_file_logs.id ,id_config, your_filename, "
+					+ " delimiter, localPath, fileName, number_column "
+					+ "from data_file_logs JOIN data_file_configuaration "
+					+ "ON data_file_logs.id_config = data_file_configuaration.id" + " where "
+					+ "data_file_logs.status_file like 'Download ok' AND data_file_configuaration.isActive=1 ");
 			// 3. Nhận được ResultSet chứa các record thỏa điều kiện truy xuất
 			ResultSet re = pre_control.executeQuery();
 			// 4. Chạy từng dòng record và lấy các giá trị put vào Map
