@@ -27,9 +27,9 @@ public class DownloadFile {
 
 	// Phương thức download file nhận vào tham số key từ table configuaration
 	// 1. Nhập key n cần tải trong table data_file_configuaration
-	public void DownloadFie(int n) throws ClassNotFoundException, SQLException {
+	public void DownloadFile(int n) throws ClassNotFoundException, SQLException {
 	// 2. Kết nối tới Database database_control
-		Connection connection = new GetConnection().getConnection("control_db");
+		Connection connection = new GetConnection().getConnection("control");
 	// 3. Kết nối tới bảng data_file_configuaration
 		String sql = "SELECT id, fileName, hostName, port, userName, passWord, remotePath, localPath FROM data_file_configuaration Where id=" + n;
 		PreparedStatement ps = connection.prepareStatement(sql);
@@ -122,7 +122,7 @@ public class DownloadFile {
 	// Kiểm tra file và ghi vào log
 	public void checkFile(String id, List<File> listFile, String fileName) throws SQLException {
 		// Kết nối tới table data_file_logs trong database control
-		Connection connection = new GetConnection().getConnection("control_db");
+		Connection connection = new GetConnection().getConnection("control");
 		for (int i = 0; i < listFile.size(); i++) {
 			File f = listFile.get(i);
 			// Kiểm tra tên file đã tồn tại trong table data_file_logs hay chưa
@@ -158,7 +158,7 @@ public class DownloadFile {
 	// Kiểm tra tên file đã tồn tại trong bảng data_file_logs chưa
 	public boolean checkLog(String fileName) throws SQLException {
 		// Kết nối tới table data_file_logs trong database control
-		Connection connection = new GetConnection().getConnection("control_db");
+		Connection connection = new GetConnection().getConnection("control");
 		String sql = "SELECT your_filename FROM data_file_logs";
 		PreparedStatement ps = connection.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();

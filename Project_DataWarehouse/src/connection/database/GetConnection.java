@@ -58,22 +58,7 @@ public class GetConnection {
 				ex.printStackTrace();
 			}
 		} else {
-			if (location.equalsIgnoreCase("control_db")) {
-				try (InputStream input = new FileInputStream(link)) {
-					Properties prop = new Properties();
-					prop.load(input);
-					driver = prop.getProperty("driver_local");
-					url = prop.getProperty("url_local");
-					dbName = prop.getProperty("dbName_control");
-					userName = prop.getProperty("userName_local");
-					passWord = prop.getProperty("password_local");
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
-			}
-			else {
-				System.out.println(driver);
-			}
+			System.out.println(driver);
 		}
 		try {
 			Class.forName(driver);

@@ -55,10 +55,6 @@ public class ConvertExcelToTxt {
 
 		while (iterator.hasNext()) {
 			Row nextRow = iterator.next();
-//			if (nextRow.getRowNum() == 0) {
-//				// Ignore header
-//				continue;
-//			}
 
 			for (int cellCounter = 0; cellCounter < maxNumOfCells; cellCounter++) { // Loop through cells
 				if (nextRow.getCell(cellCounter) == null) {
@@ -101,8 +97,6 @@ public class ConvertExcelToTxt {
 						break;
 					case FORMULA:
 						// In ra Công thức
-						// System.out.print(cell.getCellFormula());
-						// System.out.print("\t");
 						FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
 						// In ra giá trị từ công thức
 						data.append(delimiter + (int) evaluator.evaluate(cell).getNumberValue());

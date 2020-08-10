@@ -7,10 +7,10 @@ public class Main {
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Nhập số cần tải: ");
+		System.out.println("Nhap so can tai: ");
 		int n = sc.nextInt();
-		System.out.print("Bắt đầu tải: ");
+		System.out.print("Bat dau tai: ");
 		DownloadFile load = new DownloadFile();
-		load.DownloadFie(n);
+		load.DownloadFile(n);
 	}
 }

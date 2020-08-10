@@ -20,6 +20,7 @@ import connection.database.GetConnection;
 public class Staging {
 	// load sinh vien vao db staging theo tung file
 	public static void loadStudentToStaging() {
+		//1
 		ArrayList<HashMap<String, String>> lst = getFileInControl();
 		System.out.println(lst.size());
 		String db_staging = new GetConnection().getDbName();
@@ -68,12 +69,6 @@ public class Staging {
 				// 9. Tiến hành load tất cả sinh viên vào DB staging từ câu sql và trả về số
 				// dòng đã được load thành công
 				int count = addStudentOnTable(sql);
-
-				///// Thu buoc 3
-//					LoadDataToWarehouseTemp.loadDataToWarehouseTemp(table_staging, table_warehouse, db_staging, fieldName);
-//					String sql2 = "TRUNCATE TABLE " + table_staging;
-//					addStudentOnTable(sql2);
-				////////
 
 				if (count > 0) {
 					// 10.1. Cập nhật trạng thái trong data_file_logs là ERROR at Staging và ngày
