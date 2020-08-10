@@ -2,7 +2,7 @@ package main;
 
 import java.sql.SQLException;
 
-import phan1.DownloadFile;
+import phan1.DownloadFileServer;
 import phan2.Staging;
 import phan3.DataWarehouseClass;
 import phan3.DataWarehouseRegistration;
@@ -12,7 +12,7 @@ import phan3.DataWarehouseSubject;
 public class MainAutoProcess {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		for (int i = 1; i <= 4; i++) {
-			DownloadFile load = new DownloadFile();
+			DownloadFileServer load = new DownloadFileServer();
 			if(i == 1) {
 				load.DownloadFile(i);
 				new Staging().loadStudentToStaging();

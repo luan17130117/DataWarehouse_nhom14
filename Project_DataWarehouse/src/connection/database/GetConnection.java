@@ -18,7 +18,7 @@ public class GetConnection {
 
 	public Connection getConnection(String location) {
 		// C:\DevPrograms\git\DataWarehouse_nhom14\Project_DataWarehouse\files\config.properties
-		String link = "files/config.properties";
+		String link = "C:\\DevPrograms\\git\\DataWarehouse_nhom14\\Project_DataWarehouse\\files\\config.properties";
 		Connection result = null;
 
 		if (location.equalsIgnoreCase("control")) {

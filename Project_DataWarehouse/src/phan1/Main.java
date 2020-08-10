@@ -9,8 +9,8 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Nhap so can tai: ");
 		int n = sc.nextInt();
-		System.out.print("Bat dau tai: ");
-		DownloadFile load = new DownloadFile();
+//		System.out.print("Bat dau tai: ");
+		DownloadFileServer load = new DownloadFileServer();
 		load.DownloadFile(n);
 	}
 }
