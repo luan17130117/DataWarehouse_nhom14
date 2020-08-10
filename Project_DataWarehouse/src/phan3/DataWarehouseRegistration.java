@@ -119,13 +119,13 @@ public class DataWarehouseRegistration {
 							} else {
 								// *** YES: Tồn tại + có thay đổi: Nhánh 11.4
 								// 11.4.1. Lấy Sk_DK của đăng ký đó
+								sk_DW = re_DW.getInt("Sk_DK");
 								checkExist = "YES";// co 1 truong nao do khac
 							}
 						} // end while
 
 						if (checkExist.equalsIgnoreCase("YES")) {
 							
-							sk_DW = re_DW.getInt("Sk_DK");
 							// 11.4.2. In thông báo thay đổi thông tin DK
 							System.out.println("==> Thay đôi TTDK mã: " + maDKTemp + ", mssv " + mssvTemp
 									+ ", ma lop hoc " + maLopHocTemp + ", tgdk " + tgdkTemp + " thanh " + maDK
