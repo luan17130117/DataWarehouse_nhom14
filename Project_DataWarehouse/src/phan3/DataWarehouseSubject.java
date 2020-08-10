@@ -113,7 +113,7 @@ public class DataWarehouseSubject {
 							checkExist = "NOCHANGE";// 2 dong y het nhau
 							System.out.println("khongdoi");
 						} else {
-							// 11.2.2.1. Lấy Sk_MH của môn học đó
+							// 11.4.1. Lấy Sk_MH của môn học đó
 							sk_DW = re_DW.getInt("Sk_MH");
 							checkExist = "YES";// co 1 truong nao do khac
 						}
@@ -121,17 +121,17 @@ public class DataWarehouseSubject {
 					} // end while
 
 					if (checkExist.equalsIgnoreCase("YES")) {
-						// *** YES: Tồn tại + có thay đổi: Nhánh 11.2.2
-
-						// 11.2.2.2. In thông báo thay đổi thông tin MH
+						// *** YES: Tồn tại + có thay đổi: Nhánh 11.4
+						
+						// 11.4.2. In thông báo thay đổi thông tin MH
 						System.out.println("==> Thay đôi TTMH mã: " + mmhTemp + ", ten mon hoc " + tenMonHocTemp
 								+ ", tc " + tcTemp + ", khoa quan ly " + khoaQuanLyTemp + ", khoa sd " + khoaSDTemp
 								+ " thanh " + mmh + ", ten mon hoc " + tenMonHoc + ", tc " + tc + ", khoa quan ly "
 								+ khoaQuanLyTemp + ", khoa sd " + khoaSD);
-						// 11.2.2.3. Trong database data-warehouse Cập nhật isActive = 0, date_change là
+						// 11.4.3. Trong database data-warehouse Cập nhật isActive = 0, date_change là
 						// ngày giờ hiện tại
 						value_update += sk_DW + ", ";
-						// 11.2.2.4.Thêm dòng MH vào table subject của data_warehouse
+						// 11.4.4.Thêm dòng MH vào table subject của data_warehouse
 						pre_DW = conn_DW1.prepareStatement(
 								"insert into monhoc ( STT, MaMH, TenMonHoc, TC, KhoaQuanLy, KhoaSuDung) values " + "( '"
 										+ stt + "', '" + mmh + "', N'" + tenMonHoc + "','" + tc + "',N'" + khoaQuanLy
@@ -140,7 +140,7 @@ public class DataWarehouseSubject {
 //
 						pre_DW.executeUpdate();
 
-						// 11.2.2.5. tăng số dòng cập nhật lên
+						// 11.4.5. tăng số dòng cập nhật lên
 						count_UPDATE++;
 
 					} else if (checkExist.equalsIgnoreCase("NO")) {
@@ -153,14 +153,14 @@ public class DataWarehouseSubject {
 						// 11.1.2. Thêm thông tin MH chuỗi value_insert
 						value_sql += "( '" + stt + "', '" + mmh + "', N'" + tenMonHoc + "','" + tc + "', N'"
 								+ khoaQuanLy + "',N'" + khoaSD + "'),";
-						// 11.1..3. tăng số dòng thêm mới lên
+						// 11.1.3. tăng số dòng thêm mới lên
 						count_NEW++;
 
 					} else if (checkExist.equalsIgnoreCase("NOCHANGE")) {
-						// *** NOCHANGE: giong y chang, khong co gi thay doi: Nhanh 11.2.1
+						// *** NOCHANGE: giong y chang, khong co gi thay doi: Nhanh 11.3
 
 						System.out.println("==> KHONG CO GI THAY DOI: TT trong DW");
-						// 11.2.1.1. Tăng số dòng không cần thêm vào data_warehouse lên 1
+						// 11.3.1. Tăng số dòng không cần thêm vào data_warehouse lên 1
 						countEXIST++;
 					}
 
@@ -177,15 +177,17 @@ public class DataWarehouseSubject {
 				} else {
 					// ****** het table trong staging
 					// ******* cap nhat vao DW
+//					Nhanh 12.a
 					if (count_UPDATE > 0) {
 						value_update = value_update.substring(0, value_update.lastIndexOf(","));// cat dau , cuoi cung
+						//12.a.1 Trong database data-warehouse Cập nhật isActive = 0
 						pre_DW = conn_DW1.prepareStatement(
 								"update monhoc set isActive = 0 where Sk_MH IN ( " + value_update + ");");
 						int update = pre_DW.executeUpdate();
 						System.out.println("so dong da update: " + update);
 					}
 					if (count_NEW > 0) {
-						// **them du lieu vao DW
+						// 12.a.2 them du lieu vao DW
 						value_sql = value_sql.substring(0, value_sql.lastIndexOf(","));// cat dau phay cuoi cung
 						value_sql += ";";
 						System.out.println(value_sql);
@@ -196,7 +198,7 @@ public class DataWarehouseSubject {
 						System.out.println("So dong insert vao: " + i);
 					}
 
-					// 12.a. Update trạng thái file là OK DW và time_data_warehouse là TG hiện
+					// 12.a.3 Update trạng thái file là OK DW và time_data_warehouse là TG hiện
 					// tại
 					pre_control = con_Control.prepareStatement(
 							"update data_file_logs set status_file='OK DW' , data_file_logs.time_data_warehouse=now(), exist_row_DW ="

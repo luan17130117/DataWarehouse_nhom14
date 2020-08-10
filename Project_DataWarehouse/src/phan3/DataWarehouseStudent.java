@@ -137,7 +137,7 @@ public class DataWarehouseStudent {
 								checkExist = "NOCHANGE";// 2 dong y het nhau
 								System.out.println("khongdoi");
 							} else {
-								// 11.2.2.1. Lấy Sk_SV của sinh viên đó
+								// 11.4.1. Lấy Sk_SV của sinh viên đó
 								sk_DW = re_DW.getInt("Sk_SV");
 								checkExist = "YES";// co 1 truong nao do khac
 
@@ -146,30 +146,28 @@ public class DataWarehouseStudent {
 						} // end while
 
 						if (checkExist.equalsIgnoreCase("YES")) {
-							// *** YES: Tồn tại + có thay đổi: Nhánh 11.2.2
-
-							// 11.2.2.2. In thông báo thay đổi thông tin SV
+							// *** YES: Tồn tại + có thay đổi: Nhánh 11.4
+							
+							// 11.4.2. In thông báo thay đổi thông tin SV
 							System.out.println("==> Thay đôi TTSV mã: " + mssvTemp + ", " + hoLotTemp + " " + tenTemp
 									+ ", " + ngaySinhTemp + ", " + maLopTemp + ", " + tenLopTemp + ", " + sdtTemp + ", "
 									+ emailTemp + ", " + queQuanTemp + ", " + ghiChuTemp + " thanh " + mssv + ", "
 									+ hoLot + " " + ten + ", " + ngaySinh + ", " + maLop + ", " + tenLop + ", " + sdt
 									+ ", " + email + ", " + queQuan + ", " + ghiChu);
-							// 11.2.2.3. Trong database data-warehouse Cập nhật isActive = 0, date_change là
-							// ngày giờ hiện tại
+							// 11.4.3. Cong ma sk vao chuoi value_update
 							value_update += sk_DW + ", ";
-							// 11.2.2.4.Thêm dòng SV vào table sinhvien của data_warehouse
+							// 11.4.4.Thêm dòng SV vào table sinhvien của data_warehouse
 							pre_DW = conn_DW1.prepareStatement(
-
 									"insert into sinhvien( STT , MSSV, HoLot, Ten, NgaySinh ,index_ngaysinh, MaLop, TenLop, SDT, Email, QueQuan, GhiChu) values "
 											+ "( '" + stt + "', '" + mssv + "', N'" + hoLot + "', N'" + ten + "', '"
 											+ ngaySinh + "', '" + index_date + "', '" + maLop + "', '" + tenLop + "', '"
 											+ sdt + "', '" + email + "', '" + queQuan + "', '" + ghiChu + "')");
-
-//
 							pre_DW.executeUpdate();
 
-							// 11.2.2.5. tăng số dòng cập nhật lên
+							// 11.4.5. tăng số dòng cập nhật lên
 							count_UPDATE++;
+					
+							
 
 						} else if (checkExist.equalsIgnoreCase("NO")) {
 							// **** NO: them moi hoan toan: Nhanh 11.1
@@ -182,14 +180,14 @@ public class DataWarehouseStudent {
 							value_sql += "(' " + stt + "', '" + mssv + "', N'" + hoLot + "', N'" + ten + "', '"
 									+ ngaySinh + "', '" + index_date + "', '" + maLop + "', '" + tenLop + "', '" + sdt
 									+ "', '" + email + "', '" + queQuan + "', '" + ghiChu + "'),";
-							// 11.1..3. tăng số dòng thêm mới lên
+							// 11.1.3. tăng số dòng thêm mới lên
 							count_NEW++;
 
 						} else if (checkExist.equalsIgnoreCase("NOCHANGE")) {
-							// *** NOCHANGE: giong y chang, khong co gi thay doi: Nhanh 11.2.1
+							// *** NOCHANGE: giong y chang, khong co gi thay doi: Nhanh 11.3
 
 							System.out.println("==> KHONG CO GI THAY DOI: TT trong DW");
-							// 11.2.1.1. Tăng số dòng không cần thêm vào data_warehouse lên 1
+							// 11.3.1. Tăng số dòng không cần thêm vào data_warehouse lên 1
 							countEXIST++;
 						}
 					} catch (ParseException e) {
@@ -200,26 +198,30 @@ public class DataWarehouseStudent {
 
 				} // end while:1 SV trong staging
 
-				// kiem tra ERR eps kieu cho ngay thoi
+				// kiem tra ERR ep kieu cho ngay thoi
 				if (err == true) {
-					// 12.b. Update trạng thái file là ERROR_DATE_DW và time_data_warehouse là TG
+					// 12.b. Update trạng thái file là ERROR DW và time_data_warehouse là TG
 					// hiện tại
 					pre_control = con_Control.prepareStatement("update data_file_logs set status_file='ERROR DW' ,"
 							+ "data_file_logs.time_data_warehouse=now() where id=" + id_file);
 					pre_control.executeUpdate();
 					System.out.println("update error!! " + id_file);
 				} else {
+				
 					// ****** het table trong staging
 					// ******* cap nhat vao DW
+//					Nhanh 12.a
 					if (count_UPDATE > 0) {
 						value_update = value_update.substring(0, value_update.lastIndexOf(","));// cat dau , cuoi cung
+						//12.a.1 Trong database data-warehouse Cập nhật isActive = 0
 						pre_DW = conn_DW1.prepareStatement(
 								"update sinhvien set isActive = 0 where Sk_SV IN ( " + value_update + ");");
 						int update = pre_DW.executeUpdate();
 						System.out.println("so dong da update: " + update);
 					}
+					
 					if (count_NEW > 0) {
-						// **them du lieu vao DW
+						// 12.a.2 them du lieu vao DW
 
 						value_sql = value_sql.substring(0, value_sql.lastIndexOf(","));// cat dau phay cuoi cung
 						value_sql += ";";
@@ -231,7 +233,7 @@ public class DataWarehouseStudent {
 						System.out.println("So dong insert vao: " + i);
 					}
 
-					// 12.a. Update trạng thái file là OK DW và time_data_warehouse là TG hiện
+					// 12.a.3 Update trạng thái file là OK DW và time_data_warehouse là TG hiện
 					// tại
 					pre_control = con_Control.prepareStatement(
 							"update data_file_logs set status_file='OK DW' , data_file_logs.time_data_warehouse=now(), exist_row_DW ="
