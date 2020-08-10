@@ -4,7 +4,7 @@ STT;Mã sinh viên;Họ lót;Tên;Ngày Sinh;Mã lớp;Tên lớp;ĐT liên lạ
 3;17130008;Vũ Huỳnh Như;Anh;19/05/1999;DH17DTA;Công nghệ thông tin A;0;0;Tiền Giang;?
 4;17130016;Nguyễn Việt;Chương;21/05/1999;DH17DTA;Công nghệ thông tin A;0;0;Trà Vinh;?
 5;17130033;Phạm Phương;Dung;20/06/1998;DH17DTB;Công nghệ thông tin B;0;0;Vĩnh Long;?
-6;17130037;Huỳnh Khương;Duy;36443;DH17DTC;Công nghệ thông tin C;0;0;Đà Nẵng;?
+6;17130037;Huỳnh Khương;Duy;10/10/1999;DH17DTC;Công nghệ thông tin C;0;0;Đà Nẵng;?
 7;17130041;Thái Ngọc Lê;Duy;20/01/1999;DH17DTB;Công nghệ thông tin B;0;0;Quảng Nam;?
 8;17130044;Lăng Thị Mỹ;Duyên;27/12/1999;DH17DTA;Công nghệ thông tin A;0;0;Quảng Ngãi;?
 9;17130045;Trần Thị Mỹ;Duyên;15/08/1999;DH17DTA;Công nghệ thông tin A;0;0;Bình Định;?

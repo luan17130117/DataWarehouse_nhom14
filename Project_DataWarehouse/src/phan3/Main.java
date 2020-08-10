@@ -14,16 +14,12 @@ public class Main {
 				"Nhap so can load to DW:\n 1. load sinhvien to DW \n 2. load monhoc to DW \n 3. load lophoc to DW \n 4. load dangky to DW \n 0. Exit \n ");
 		int n = sc.nextInt();
 		if (n == 1) {
-			new Staging().loadStudentToStaging();
 			new DataWarehouseStudent().insertStudentToDW();
 		} else if (n == 2) {
-			new Staging().loadStudentToStaging();
 			new DataWarehouseSubject().insertSubjectToDW();
 		} else if (n == 3) {
-			new Staging().loadStudentToStaging();
 			new DataWarehouseClass().insertClassToDW();
 		} else if (n == 4) {
-			new Staging().loadStudentToStaging();
 			new DataWarehouseRegistration().insertRegistrationToDW();
 		} else if (n == 0) {
 			System.out.println("See you again!");

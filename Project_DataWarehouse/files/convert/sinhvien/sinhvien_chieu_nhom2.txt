@@ -1,41 +1,41 @@
 OrdinalNumber;ID;LastName;FirstName;DayBorn;IDClass;ClassName;PhoneNumber;Email;Address;Note
-1;17130212;Nguyễn Quyết;Thắng;33825;DH17DTB;Công nghệ thông tin b;785678467;17130212@st.hcmuaf.edu.vn;HCM ;?
-2;17130077;Nguyễn Ngọc;Hồng;34681;DH17DTB;Công nghệ thông tin b;254367689;17130077@st.hcmuaf.edu.vn;HCM ;?
-3;17130262;Từ Thị Hoài;Tú;34723;DH17DTB;Công nghệ thông tin b;578678989;17130262@st.hcmuaf.edu.vn;HCM ;?
-4;17130012;Lê Nguyễn Nhật;Bình;34825;DH17DTA;Công nghệ thông tin A;856876584;17130012@st.hcmuaf.edu.vn;HCM ;?
-5;17130189;Lưu Minh;Sang;34651;DH17DTB;Công nghệ thông tin b;546787587;17130189@st.hcmuaf.edu.vn;HCM ;?
-6;16130311;Phùng Quốc;Cường;34700;DH16DTB;Công nghệ thông tin B;986346536;16130311@st.hcmuaf.edu.vn;HCM ;?
-7;17130236;Lê Tiến;Thuận;34534;DH17DTA;Công nghệ thông tin A;567698898;17130236@st.hcmuaf.edu.vn;HCM ;?
-8;17130248;Phan Văn;TỊnh;34879;DH17DTB;Công nghệ thông tin b;967976899;17130248@st.hcmuaf.edu.vn;HCM ;?
-9;17130121;Võ Đức;Mạnh;34750;DH17DTB;Công nghệ thông tin b;698797896;17130121@st.hcmuaf.edu.vn;HCM ;?
-10;17130088;Phan Lê;Huy;34655;DH17DTB;Công nghệ thông tin b;679876979;17130088@st.hcmuaf.edu.vn;HCM ;?
-11;17130136;Nguyễn Văn;Nghĩa;34992;DH17DTC;Công nghệ thông tin C;987976898;17130136@st.hcmuaf.edu.vn;HCM ;?
-12;16130514;Nguyễn Chí;Phong;34758;DH16DTC;Công nghệ thông tin C;897978999;16130514@st.hcmuaf.edu.vn;HCM ;?
-13;16130367;Nguyễn Thị;Hậu;34908;DH16DTB;Công nghệ thông tin B;679880969;16130367@st.hcmuaf.edu.vn;HN;?
-14;17130239;Nguyễn Văn;Thường;34874;DH17DTA;Công nghệ thông tin A;568756861;17130239@st.hcmuaf.edu.vn;HN;?
-15;17130065;Đặng Trung;Hiếu;34293;DH17DTA;Công nghệ thông tin A;567858568;17130065@st.hcmuaf.edu.vn;HN;?
-16;17130055;Nguyễn Thị Thúy;Hằng;34749;DH17DTB;Công nghệ thông tin b;678769798;17130055@st.hcmuaf.edu.vn;HN;?
-17;17130069;Nguyễn Minh;Hiếu;35170;DH17DTB;Công nghệ thông tin b;769878999;17130069@st.hcmuaf.edu.vn;HN;?
-18;17130046;Bùi Hoàng;Gia;35081;DH17DTB;Công nghệ thông tin b;0904321613;17130046@st.hcmuaf.edu.vn;HN;?
-19;17130152;Nguyễn Đoàn Minh;Nhật;35421;DH17DTC;Công nghệ thông tin C;0123456789;17130152@st.hcmuaf.edu.vn;CT;?
-20;17130272;Nguyễn Quốc;Việt;35023;DH17DTB;Công nghệ thông tin b;0963852741;17130272@st.hcmuaf.edu.vn;CT;?
-21;16130294;Huỳnh Thế;Bảo;35170;DH16DTA;Công nghệ thông tin A;0321654987;16130294@st.hcmuaf.edu.vn;CT;?
-22;16130322;Nguyễn Văn;Đạt;35412;DH16DTC;Công nghệ thông tin C;0369258147;16130322@st.hcmuaf.edu.vn;CT;?
-23;15130028;Phạm Thành;Đạt;35226;DH15DTA;Công nghệ thông tin A;0321654987;15130028@st.hcmuaf.edu.vn;CT;?
-24;16130348;Nguyễn Thị Hồng;Gấm;34715;DH16DTA;Công nghệ thông tin A;0321456789;16130348@st.hcmuaf.edu.vn;CT;?
-25;15130045;Nguyễn Thanh;Hải;35339;DH15DTC;Công nghệ thông tin C;0987123456;15130045@st.hcmuaf.edu.vn;CT;?
-26;16130363;Trần Thị Hồng;Hạnh;35345;DH16DTB;Công nghệ thông tin B;0951357486;16130363@st.hcmuaf.edu.vn;HN;?
-27;16130375;Bùi Minh;Hiếu;35334;DH16DTB;Công nghệ thông tin B;698769789;16130375@st.hcmuaf.edu.vn;HN;?
-28;16130382;Phạm Đức;Hiếu;35351;DH16DTA;Công nghệ thông tin A;679868658;16130382@st.hcmuaf.edu.vn;HN;?
-29;17130071;Vũ Minh;Hiếu;35379;DH17DTA;Công nghệ thông tin A;969679879;17130071@st.hcmuaf.edu.vn;HN;?
-30;16130390;Nguyễn Văn Huy;Hoàng;35387;DH16DTA;Công nghệ thông tin A;679889679;16130390@st.hcmuaf.edu.vn;HN;?
-31;16130421;Lê Phan Đăng;Khoa;34809;DH16DTB;Công nghệ thông tin B;0951248631;16130421@st.hcmuaf.edu.vn;HN;?
-32;16130424;Nguyễn Gia;Khương;35334;DH16DTC;Công nghệ thông tin C;0357412698;16130424@st.hcmuaf.edu.vn;HCM ;?
-33;17130106;Võ Văn;Kiệt;35392;DH17DTC;Công nghệ thông tin C;0398545435;17130106@st.hcmuaf.edu.vn;HCM ;?
-34;16130432;Lương Thị;Lan;34938;DH16DTA;Công nghệ thông tin A;0985433685;16130432@st.hcmuaf.edu.vn;HCM ;?
-35;16130434;Vỏ Kim;Lanh;35378;DH16DTB;Công nghệ thông tin B;0351848436;16130434@st.hcmuaf.edu.vn;HCM ;?
-36;16130449;Nguyễn Hoàng;Long;35401;DH16DTC;Công nghệ thông tin C;0985156138;16130449@st.hcmuaf.edu.vn;HCM ;?
-37;17130143;Nguyễn Khánh;Nguyên;35341;DH17DTB;Công nghệ thông tin b;0385954665;17130143@st.hcmuaf.edu.vn;HCM ;?
-38;12130157;Nguyễn Minh;Nhã;35214;DH12DT;Công nghệ thông tin;0974532351;12130157@st.hcmuaf.edu.vn;HCM ;?
-39;16130495;Ngô Văn;Nhân;35378;DH16DTB;Công nghệ thông tin B;0978413216;16130495@st.hcmuaf.edu.vn;HCM ;?
-40;15130123;Nguyễn Bảo;Nhân;34763;DH15DTB;Công nghệ thông tin B;0314943168;15130123@st.hcmuaf.edu.vn;HCM ;?
+1;17130212;Nguyễn Quyết;Thắng;09/08/1992;DH17DTB;Công nghệ thông tin b;785678467;17130212@st.hcmuaf.edu.vn;HCM ;?
+2;17130077;Nguyễn Ngọc;Hồng;13/12/1994;DH17DTB;Công nghệ thông tin b;254367689;17130077@st.hcmuaf.edu.vn;HCM ;?
+3;17130262;Từ Thị Hoài;Tú;24/01/1995;DH17DTB;Công nghệ thông tin b;578678989;17130262@st.hcmuaf.edu.vn;HCM ;?
+4;17130012;Lê Nguyễn Nhật;Bình;06/05/1995;DH17DTA;Công nghệ thông tin A;856876584;17130012@st.hcmuaf.edu.vn;HCM ;?
+5;17130189;Lưu Minh;Sang;13/11/1994;DH17DTB;Công nghệ thông tin b;546787587;17130189@st.hcmuaf.edu.vn;HCM ;?
+6;16130311;Phùng Quốc;Cường;01/01/1995;DH16DTB;Công nghệ thông tin B;986346536;16130311@st.hcmuaf.edu.vn;HCM ;?
+7;17130236;Lê Tiến;Thuận;19/07/1994;DH17DTA;Công nghệ thông tin A;567698898;17130236@st.hcmuaf.edu.vn;HCM ;?
+8;17130248;Phan Văn;TỊnh;29/06/1995;DH17DTB;Công nghệ thông tin b;967976899;17130248@st.hcmuaf.edu.vn;HCM ;?
+9;17130121;Võ Đức;Mạnh;20/02/1995;DH17DTB;Công nghệ thông tin b;698797896;17130121@st.hcmuaf.edu.vn;HCM ;?
+10;17130088;Phan Lê;Huy;17/11/1994;DH17DTB;Công nghệ thông tin b;679876979;17130088@st.hcmuaf.edu.vn;HCM ;?
+11;17130136;Nguyễn Văn;Nghĩa;20/10/1995;DH17DTC;Công nghệ thông tin C;987976898;17130136@st.hcmuaf.edu.vn;HCM ;?
+12;16130514;Nguyễn Chí;Phong;28/02/1995;DH16DTC;Công nghệ thông tin C;897978999;16130514@st.hcmuaf.edu.vn;HCM ;?
+13;16130367;Nguyễn Thị;Hậu;28/07/1995;DH16DTB;Công nghệ thông tin B;679880969;16130367@st.hcmuaf.edu.vn;HN;?
+14;17130239;Nguyễn Văn;Thường;24/06/1995;DH17DTA;Công nghệ thông tin A;568756861;17130239@st.hcmuaf.edu.vn;HN;?
+15;17130065;Đặng Trung;Hiếu;20/11/1993;DH17DTA;Công nghệ thông tin A;567858568;17130065@st.hcmuaf.edu.vn;HN;?
+16;17130055;Nguyễn Thị Thúy;Hằng;19/02/1995;DH17DTB;Công nghệ thông tin b;678769798;17130055@st.hcmuaf.edu.vn;HN;?
+17;17130069;Nguyễn Minh;Hiếu;15/04/1996;DH17DTB;Công nghệ thông tin b;769878999;17130069@st.hcmuaf.edu.vn;HN;?
+18;17130046;Bùi Hoàng;Gia;17/01/1996;DH17DTB;Công nghệ thông tin b;0904321613;17130046@st.hcmuaf.edu.vn;HN;?
+19;17130152;Nguyễn Đoàn Minh;Nhật;22/12/1996;DH17DTC;Công nghệ thông tin C;0123456789;17130152@st.hcmuaf.edu.vn;CT;?
+20;17130272;Nguyễn Quốc;Việt;20/11/1995;DH17DTB;Công nghệ thông tin b;0963852741;17130272@st.hcmuaf.edu.vn;CT;?
+21;16130294;Huỳnh Thế;Bảo;15/04/1996;DH16DTA;Công nghệ thông tin A;0321654987;16130294@st.hcmuaf.edu.vn;CT;?
+22;16130322;Nguyễn Văn;Đạt;13/12/1996;DH16DTC;Công nghệ thông tin C;0369258147;16130322@st.hcmuaf.edu.vn;CT;?
+23;15130028;Phạm Thành;Đạt;10/06/1996;DH15DTA;Công nghệ thông tin A;0321654987;15130028@st.hcmuaf.edu.vn;CT;?
+24;16130348;Nguyễn Thị Hồng;Gấm;16/01/1995;DH16DTA;Công nghệ thông tin A;0321456789;16130348@st.hcmuaf.edu.vn;CT;?
+25;15130045;Nguyễn Thanh;Hải;01/10/1996;DH15DTC;Công nghệ thông tin C;0987123456;15130045@st.hcmuaf.edu.vn;CT;?
+26;16130363;Trần Thị Hồng;Hạnh;07/10/1996;DH16DTB;Công nghệ thông tin B;0951357486;16130363@st.hcmuaf.edu.vn;HN;?
+27;16130375;Bùi Minh;Hiếu;26/09/1996;DH16DTB;Công nghệ thông tin B;698769789;16130375@st.hcmuaf.edu.vn;HN;?
+28;16130382;Phạm Đức;Hiếu;13/10/1996;DH16DTA;Công nghệ thông tin A;679868658;16130382@st.hcmuaf.edu.vn;HN;?
+29;17130071;Vũ Minh;Hiếu;10/11/1996;DH17DTA;Công nghệ thông tin A;969679879;17130071@st.hcmuaf.edu.vn;HN;?
+30;16130390;Nguyễn Văn Huy;Hoàng;18/11/1996;DH16DTA;Công nghệ thông tin A;679889679;16130390@st.hcmuaf.edu.vn;HN;?
+31;16130421;Lê Phan Đăng;Khoa;20/04/1995;DH16DTB;Công nghệ thông tin B;0951248631;16130421@st.hcmuaf.edu.vn;HN;?
+32;16130424;Nguyễn Gia;Khương;26/09/1996;DH16DTC;Công nghệ thông tin C;0357412698;16130424@st.hcmuaf.edu.vn;HCM ;?
+33;17130106;Võ Văn;Kiệt;23/11/1996;DH17DTC;Công nghệ thông tin C;0398545435;17130106@st.hcmuaf.edu.vn;HCM ;?
+34;16130432;Lương Thị;Lan;27/08/1995;DH16DTA;Công nghệ thông tin A;0985433685;16130432@st.hcmuaf.edu.vn;HCM ;?
+35;16130434;Vỏ Kim;Lanh;09/11/1996;DH16DTB;Công nghệ thông tin B;0351848436;16130434@st.hcmuaf.edu.vn;HCM ;?
+36;16130449;Nguyễn Hoàng;Long;02/12/1996;DH16DTC;Công nghệ thông tin C;0985156138;16130449@st.hcmuaf.edu.vn;HCM ;?
+37;17130143;Nguyễn Khánh;Nguyên;03/10/1996;DH17DTB;Công nghệ thông tin b;0385954665;17130143@st.hcmuaf.edu.vn;HCM ;?
+38;12130157;Nguyễn Minh;Nhã;29/05/1996;DH12DT;Công nghệ thông tin;0974532351;12130157@st.hcmuaf.edu.vn;HCM ;?
+39;16130495;Ngô Văn;Nhân;09/11/1996;DH16DTB;Công nghệ thông tin B;0978413216;16130495@st.hcmuaf.edu.vn;HCM ;?
+40;15130123;Nguyễn Bảo;Nhân;05/03/1995;DH15DTB;Công nghệ thông tin B;0314943168;15130123@st.hcmuaf.edu.vn;HCM ;?

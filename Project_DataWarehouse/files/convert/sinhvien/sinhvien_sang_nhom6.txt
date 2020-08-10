@@ -1,35 +1,35 @@
 STT;Mã số sinh viên;Họ lót;Tên;Ngày Sinh;Lớp;Tên Lớp;ĐT liên lạc;Email;Quê Quán; Ghi chú;?
 1;16130281;Lê Hoàng;An;16/05/1991;DH16DTC;Công nghệ thông tin;785678467;luan131231@gmail.com;Đồng Nai;?;?
 2;16130282;Lê Thành;An;25/09/1985;DH16DTA;Công nghệ thông tin;254367689;14118215@st.hcmuaf.edu.vn;Bình Dương;?;?
-3;16130327;Võ Thị Như;Diệu;31787;DH16DTA;Công nghệ thông tin;578678989;14153040@st.hcmuaf.edu.vn;Quảng Bình;?;?
-4;17130026;Phạm Nguyễn Bửu;ĐiỀn;32083;DH17DTA;Công nghệ thông tin;856876584;14153053@st.hcmuaf.edu.vn;Bình Định;?;?
-5;17130052;Phạm Ngọc;Hải;33359;DH17DTC;Công nghệ thông tin;546787587;14153067@st.hcmuaf.edu.vn;Đồng Nai;?;?
+3;16130327;Võ Thị Như;Diệu;10/01/1987;DH16DTA;Công nghệ thông tin;578678989;14153040@st.hcmuaf.edu.vn;Quảng Bình;?;?
+4;17130026;Phạm Nguyễn Bửu;ĐiỀn;02/11/1987;DH17DTA;Công nghệ thông tin;856876584;14153053@st.hcmuaf.edu.vn;Bình Định;?;?
+5;17130052;Phạm Ngọc;Hải;01/05/1991;DH17DTC;Công nghệ thông tin;546787587;14153067@st.hcmuaf.edu.vn;Đồng Nai;?;?
 6;17130054;Nguyễn Thị;Hằng;18/03/1994;DH17DTB;Công nghệ thông tin;986346536;14153085@st.hcmuaf.edu.vn;Bình Dương;?;?
-7;17130059;Trần Thanh;Hậu;33120;DH17DTC;Công nghệ thông tin;567698898;14153143@st.hcmuaf.edu.vn;Đăk Nông;?;?
-8;17130069;Nguyễn Minh;Hiếu;33128;DH17DTB;Công nghệ thông tin;967976899;14118001@st.hcmuaf.edu.vn;Gia Lai;?;?
+7;17130059;Trần Thanh;Hậu;04/09/1990;DH17DTC;Công nghệ thông tin;567698898;14153143@st.hcmuaf.edu.vn;Đăk Nông;?;?
+8;17130069;Nguyễn Minh;Hiếu;12/09/1990;DH17DTB;Công nghệ thông tin;967976899;14118001@st.hcmuaf.edu.vn;Gia Lai;?;?
 9;14130039;Đoàn Văn;Hòa;22/09/1997;DH14DTA;Công nghệ thông tin;698797896;14118018@st.hcmuaf.edu.vn;Hậu Giang;?;?
 10;17130086;Phạm Khắc;Huy;16/11/1994;DH17DTC;Công nghệ thông tin;679876979;14118038@st.hcmuaf.edu.vn;Bến Tre;?;?
 11;16130431;Trần Gia;Lâm;24/09/1980;DH16DTA;Công nghệ thông tin;987976898;14118053@st.hcmuaf.edu.vn;Cần Thơ;?;?
 12;17130110;Nguyễn Thị Hồng;Loan;15/06/1975;DH17DTB;Công nghệ thông tin;897978999;14118081@st.hcmuaf.edu.vn;Đồng Nai;?;?
-13;17130111;Nguyễn Đức;Lộc;28498;DH17DTC;Công nghệ thông tin;679880969;14118109@st.hcmuaf.edu.vn;Bình Phước;?;?
+13;17130111;Nguyễn Đức;Lộc;08/01/1978;DH17DTC;Công nghệ thông tin;679880969;14118109@st.hcmuaf.edu.vn;Bình Phước;?;?
 14;16130499;Huỳnh Trọng;Nhật;14/01/1984;DH16DTC;Công nghệ thông tin;568756861;14118246@st.hcmuaf.edu.vn;Bình Định;?;?
 15;17130178;Hoàng Minh;Quang;29/07/1995;DH17DTC;Công nghệ thông tin;567858568;14137009@st.hcmuaf.edu.vn;Quảng Bình;?;?
 16;16130558;Phạm Đức;Tài;21/10/1998;DH16DTB;Công nghệ thông tin;678769798;14137053@st.hcmuaf.edu.vn;Hậu Giang;?;?
-17;16130569;Huỳnh Hữu Quốc;Thái;34983;DH16DTA;Công nghệ thông tin;769878999;14137100@st.hcmuaf.edu.vn;Long An;?;?
+17;16130569;Huỳnh Hữu Quốc;Thái;11/10/1995;DH16DTA;Công nghệ thông tin;769878999;14137100@st.hcmuaf.edu.vn;Long An;?;?
 18;15130169;Ngô Hồng;Thái;29/08/1989;DH15DTA;Công nghệ thông tin;696797967;14154022@st.hcmuaf.edu.vn;Đồng Nai;?;?
 19;16130578;Hồ Quang;Thành;29/05/1987;DH16DTA;Công nghệ thông tin;986848589;14154030@st.hcmuaf.edu.vn;Bình Dương;?;?
 20;17130212;Nguyễn Quyết;Thắng;19/04/1992;DH17DTB;Công nghệ thông tin;598989687;14154053@st.hcmuaf.edu.vn;Bình Dương;?;?
-21;17130222;Phạm Minh;Thiện;34097;DH17DTA;Công nghệ thông tin;698769789;17120021@st.hcmuaf.edu.vn;Đồng Nai;?;?
+21;17130222;Phạm Minh;Thiện;08/05/1993;DH17DTA;Công nghệ thông tin;698769789;17120021@st.hcmuaf.edu.vn;Đồng Nai;?;?
 22;15130176;Trần Quang;Thiện;20/09/1983;DH15DTA;Công nghệ thông tin;679868658;17170012@st.hcmuaf.edu.vn;Quảng Ngãi;?;?
 23;17130224;Từ Phước;Thiện;28/02/1994;DH17DTB;Công nghệ thông tin;969679879;17140065@st.hcmuaf.edu.vn;Hậu Giang;?;?
 24;17130232;Trần Hàng Hải;Thông;31/10/1995;DH17DTB;Công nghệ thông tin;679889679;17120045@st.hcmuaf.edu.vn;Long An;?;?
 25;17130235;Võ Thị;Thu;28/12/1994;DH17DTB;Công nghệ thông tin;585686586;17130034@st.hcmuaf.edu.vn;Đồng Nai;?;?
-26;17130238;Võ Nguyễn Châu;Thuận;33152;DH17DTC;Công nghệ thông tin;890908709;17560034@st.hcmuaf.edu.vn;Bình Dương;?;?
+26;17130238;Võ Nguyễn Châu;Thuận;06/10/1990;DH17DTC;Công nghệ thông tin;890908709;17560034@st.hcmuaf.edu.vn;Bình Dương;?;?
 27;17130239;Nguyễn Văn;Thường;25/10/1980;DH17DTA;Công nghệ thông tin;679876979;17890045@st.hcmuaf.edu.vn;Bình Dương;?;?
 28;17130245;Trương Hồng;Tiến;26/03/1982;DH17DTB;Công nghệ thông tin;897089079;17301023@st.hcmuaf.edu.vn;Đồng Nai;?;?
 29;17130246;Nguyễn Thanh;Tính;26/02/1979;DH17DTA;Công nghệ thông tin;908790780;17305643@st.hcmuaf.edu.vn;Quảng Ngãi;?;?
-30;17130248;Phan Văn;TỊnh;31634;DH17DTB;Công nghệ thông tin;765576744;17340232@st.hcmuaf.edu.vn;Đồng Nai;?;?
-31;17130251;Ngô Quyên;Trang;32850;DH17DTA;Công nghệ thông tin;785678467;17340834@st.hcmuaf.edu.vn;Quảng Ngãi;?;?
+30;17130248;Phan Văn;TỊnh;10/08/1986;DH17DTB;Công nghệ thông tin;765576744;17340232@st.hcmuaf.edu.vn;Đồng Nai;?;?
+31;17130251;Ngô Quyên;Trang;08/12/1989;DH17DTA;Công nghệ thông tin;785678467;17340834@st.hcmuaf.edu.vn;Quảng Ngãi;?;?
 32;17120205;Nguyễn Trần Thảo;Uyên;20/2/1677;DH17KM;Công nghệ thông tin;254367689;17230098@st.hcmuaf.edu.vn;Đồng Nai;?;?
 33;16120314;Nguyễn Trần Thu;Uyên;20/2/1678;DH16KM;Công nghệ thông tin;578678989;17240099@st.hcmuaf.edu.vn;Bình Dương;?;?
 34;16120319;Nguyễn Thị;Vân;20/2/1679;DH16KM;Công nghệ thông tin;856876584;17000004@st.hcmuaf.edu.vn;Quảng Bình;?;?

@@ -15,6 +15,10 @@ import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import connection.database.GetConnection;
+import phan3.DataWarehouseClass;
+import phan3.DataWarehouseRegistration;
+import phan3.DataWarehouseStudent;
+import phan3.DataWarehouseSubject;
 
 //Step2: Load data file from local to DB Staging
 public class Staging {
@@ -25,7 +29,7 @@ public class Staging {
 		System.out.println(lst.size());
 		String db_staging = new GetConnection().getDbName();
 		// 6. Duyệt danh sách các file
-//		try {
+		try {
 		for (int i = 0; i < lst.size(); i++) {
 			String fileName = lst.get(i).get("fileName");
 			String fileNamei = lst.get(i).get("yourFileName");
@@ -86,12 +90,26 @@ public class Staging {
 				}
 
 			}
+			//Phần 3
+			int n = Integer.parseInt(lst.get(i).get("id_config"));
+			if(n==1) {
+				new DataWarehouseStudent().insertStudentToDW();
+			}
+			if(n==2) {
+				new DataWarehouseSubject().insertSubjectToDW();
+			}
+			if(n==3) {
+				new DataWarehouseClass().insertClassToDW();
+			}
+			if(n==4) {
+				new DataWarehouseRegistration().insertRegistrationToDW();
+			}
 
 		}
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			System.out.println("<---> ERROR [LoadStudentToStaging]: " + e.getMessage());
-//		}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("<---> ERROR [LoadStudentToStaging]: " + e.getMessage());
+		}
 	}
 
 	// tra ve danh sach cac file da tai ve tu SCP va san sang load vao staging
@@ -114,6 +132,7 @@ public class Staging {
 			while (re.next()) {
 				HashMap<String, String> hm = new HashMap<String, String>();
 				hm.put("id", Integer.toString(re.getInt("id")));
+				hm.put("id_config", Integer.toString(re.getInt("id_config")));
 				hm.put("fileName", re.getString("fileName"));
 				hm.put("dir", re.getString("localPath"));
 				hm.put("yourFileName", re.getString("your_filename"));
